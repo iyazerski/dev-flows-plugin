@@ -1,6 +1,6 @@
 {
   "name": "dev-flows-plugin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Reusable Codex development workflows for context collection, change review, task implementation, commit creation, draft PRs, and Python navigation.",
   "author": {
     "name": "Ihar Yazerski",
