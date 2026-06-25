@@ -20,6 +20,16 @@ Review the local diff against the task context. Verify any context claim before 
 - Scope creep: unrequested methods, fields, settings, schema changes, abstractions, dependencies, branches, fallbacks, public contracts, formatting churn, dead code, or ownership creep.
 - Run only the smallest useful checks. Prove or drop suspected issues.
 
+## Mandatory Gates
+
+Before returning `PASS`, actively check and record evidence for all gates below. If evidence is missing, return `NEEDS_CHANGES` or `BLOCKED`; do not assume the implementation is fine.
+
+1. Contract shape: for public, webhook, API, event, CLI, or cross-system changes, compare the diff with sibling implementations and tests. Flag extra, missing, duplicated, renamed, or differently nested response fields, error details, status codes, headers, auth handling, event payloads, and persistence side effects.
+2. Reuse over reinvention: inspect every new generic-looking helper, validator, parser, normaliser, enum, serializer, fixture, or service. Search for shared equivalents and flag local reimplementation unless the task packet proves the shared code does not fit.
+3. Duplication and dead code: compare newly added functions and branches with each other and with nearby code. Flag near-duplicate helpers, single-use abstractions, obsolete branches, unused constants, and compatibility paths that are not required.
+4. Customer-facing tolerance: check inputs a customer or external agent may provide for needless case sensitivity, whitespace brittleness, backend enum leakage, overly strict formatting, or confusing validation messages. Flag issues like accepting `Employed` but rejecting `employed` unless the requirement explicitly demands it.
+5. Pattern mirroring: verify names, docstrings, comments, error wording, logging, metrics, tests, and validation style match the local codebase rather than a generic preferred style.
+
 ## Output
 
 Lead with:

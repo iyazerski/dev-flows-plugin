@@ -1,6 +1,6 @@
 {
   "name": "dev-flows-plugin",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Reusable Codex development workflows for context collection, change review, task implementation, commit creation, draft PRs, and Python navigation.",
   "author": {
     "name": "Ihar Yazerski",
@@ -13,10 +13,7 @@
     "longDescription": "Dev Flows packages reusable local development workflows for collecting task context, reviewing local changes, reviewing PRs, implementing tasks through a validation loop, creating git commits, creating draft pull requests, and navigating Python code with lspyx.",
     "developerName": "Ihar Yazerski",
     "category": "Productivity",
-    "capabilities": [
-      "Interactive",
-      "Write"
-    ],
+    "capabilities": ["Interactive", "Write"],
     "defaultPrompt": [
       "Collect context for this task.",
       "Implement this task.",
