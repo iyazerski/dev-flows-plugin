@@ -1,0 +1,4 @@
+interface:
+  display_name: "Commit"
+  short_description: "Stage as needed, generate a message, and create a git commit."
+  default_prompt: "Commit the current changes."

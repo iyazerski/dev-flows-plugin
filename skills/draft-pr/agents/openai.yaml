@@ -1,0 +1,4 @@
+interface:
+  display_name: "Draft PR"
+  short_description: "Generate PR details, push the branch, and create a draft PR."
+  default_prompt: "Create a draft PR for this branch."
