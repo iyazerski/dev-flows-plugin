@@ -5,21 +5,21 @@ description: Create a git commit from the current repository changes. Use when t
 
 # Commit
 
-Create an actual git commit. Do not only draft or return a commit message.
+Create a real git commit from the intended staged changes.
 
 ## Workflow
 
-1. Inspect staged changes with:
+1. Inspect the staged changes:
    - `git diff --staged --name-status`
    - `git diff --staged --stat`
    - `git diff --staged`
-2. If nothing is staged, run `git add -A`, then re-run the staged diff commands.
+2. If nothing is staged, stage the current repository changes with `git add -A`, then inspect the staged diff again.
 3. Generate the commit message from the staged diff only. Do not use unstaged diffs unless step 2 staged them.
-4. Run the repository's required pre-commit validation before committing when repo guidance requires it.
+4. Run required pre-commit validation before committing when repo guidance requires it.
 5. Create the commit with `git commit -m "<subject>" -m "<body>"`.
 6. Report the commit hash, subject, and any validation that ran.
 
-Do not push, create a branch, amend, or use `--no-verify` unless the latest user request explicitly asks.
+Do not push, create a branch, amend, or use `--no-verify` unless the latest user request explicitly asks for it.
 
 ## Message Format
 

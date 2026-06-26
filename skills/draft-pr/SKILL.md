@@ -5,26 +5,26 @@ description: Create a draft pull request for the current branch. Use when the us
 
 # Draft PR
 
-Create an actual draft PR. Do not only draft or return PR text.
+Create a real draft PR for the current branch.
 
 ## Workflow
 
 1. Confirm the current directory is a git repository and identify the current branch.
-2. If not specified by user, determine the base ref in this order:
+2. Choose the base ref specified by the user. If none is specified, use the first existing ref in this order:
    - `origin/main`
    - `origin/master`
-3. Inspect only the branch diff against the base:
+3. Inspect the branch diff against the base:
    - `git diff <base_ref>...HEAD --name-status`
    - `git diff <base_ref>...HEAD --stat`
    - `git diff <base_ref>...HEAD`
 4. Fetch the newest PR opened by the current user in this repo:
    - `gh pr list --state all --author "@me" --limit 1 --json number,title,body,url,createdAt`
-5. Generate PR title and body from the branch diff, mirroring that PR's format and tone when found.
+5. Generate the PR title and body from the branch diff. Mirror the user's latest PR format and tone when one exists.
 6. Push the current branch if the remote head does not already exist or is behind local `HEAD`.
 7. Create the PR with `gh pr create --draft --base <base_branch> --head <current_branch> --title "<title>" --body-file <body_file>`.
 8. Report the created draft PR URL, title, base, head, and any push performed.
 
-Follow repo guidance for required command prefixes and validation. Do not create a ready-for-review PR, merge, approve, request review, add labels, or push unrelated branches unless the latest user request explicitly asks.
+Follow repo guidance for command prefixes and validation. Do not create a ready-for-review PR, merge, approve, request review, add labels, or push unrelated branches unless the latest user request explicitly asks.
 
 ## PR Title
 

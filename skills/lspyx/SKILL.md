@@ -5,13 +5,13 @@ description: "Use `lspyx` CLI for semantic Python code navigation"
 
 # Lspyx
 
-`lspyx` is a CLI for Python semantic code navigation through LSP.
+Use `lspyx` for Python semantic code navigation through LSP.
 
 ## Workflow
 
-1. If you only know a name, start with `find-symbol <query>`.
-2. Then run the narrow semantic command that answers the question.
-3. Fall back to `rg` only when `lspyx` is unavailable, unsupported, or the task is not semantic navigation.
+1. Start with `find-symbol <query>` when you only know a symbol name.
+2. Run the narrow semantic command that answers the question.
+3. Use `rg` when `lspyx` is unavailable, unsupported, or the task is not semantic navigation.
 
 ## Rules
 
