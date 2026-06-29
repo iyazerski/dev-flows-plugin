@@ -1,4 +1,0 @@
-interface:
-  display_name: "Implement Task"
-  short_description: "Implement, validate, review, and fix a task until PR-ready."
-  default_prompt: "Implement this task."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Review and Quality"
+  short_description: "Conduct multi-axis code review with quality gates."
+  default_prompt: "Review this code change."

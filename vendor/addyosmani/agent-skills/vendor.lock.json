@@ -1,0 +1,25 @@
+{
+  "source": {
+    "type": "github",
+    "repo": "addyosmani/agent-skills",
+    "ref": "aba7c4e9695c363e65cb59effe926c7f1d1abe3d"
+  },
+  "files": [
+    {
+      "source": "skills/code-review-and-quality/SKILL.md",
+      "destination": "skills/code-review-and-quality/SKILL.md"
+    },
+    {
+      "source": "references/security-checklist.md",
+      "destination": "references/security-checklist.md"
+    },
+    {
+      "source": "references/performance-checklist.md",
+      "destination": "references/performance-checklist.md"
+    },
+    {
+      "source": "LICENSE",
+      "destination": "vendor/addyosmani/agent-skills/LICENSE"
+    }
+  ]
+}

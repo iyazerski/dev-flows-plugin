@@ -1,15 +1,24 @@
 # Dev Flows
 
-Dev Flows is a Codex plugin with concise development workflow skills for collecting task context, implementing scoped changes, reviewing code, committing, drafting PRs, and navigating Python code.
+Dev Flows is a Codex plugin with concise development workflow skills for reviewing code, committing changes, and drafting PRs.
 
 ## Skills
 
-- `collect-context`: gather a compact task context packet.
-- `implement-task`: implement, validate, review, and fix a task until PR-ready.
-- `review-changes`: perform detailed internal review of local changes.
-- `review-pr`: review a teammate PR and produce GitHub-ready comments.
+- `code-review-and-quality`: conduct multi-axis code review with quality gates.
 - `commit`: stage as needed and create a git commit.
 - `draft-pr`: push the current branch and create a draft PR.
+
+## Vendored Skills
+
+`code-review-and-quality` and its referenced checklists are vendored from
+[addyosmani/agent-skills](https://github.com/addyosmani/agent-skills).
+Vendor metadata lives under `vendor/<owner>/<repo>/`.
+
+Refresh vendored files from the pinned upstream commits:
+
+```bash
+uv run python scripts/sync_vendors.py
+```
 
 ## Install
 
@@ -25,6 +34,6 @@ Start a new Codex thread after installing so the skills are loaded.
 
 Run the install command again after pulling or publishing changes.
 
-## Licence
+## License
 
 MIT. See [LICENSE](LICENSE).

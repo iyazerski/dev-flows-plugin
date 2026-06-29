@@ -1,4 +1,0 @@
-interface:
-  display_name: "Review Changes"
-  short_description: "Review a local diff against a gathered task context."
-  default_prompt: "Review this local task change."

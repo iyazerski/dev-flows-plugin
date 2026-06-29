@@ -1,4 +1,0 @@
-interface:
-  display_name: "Collect Context"
-  short_description: "Gather task context once for implementation and review."
-  default_prompt: "Collect context for this task."
