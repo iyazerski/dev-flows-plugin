@@ -10,7 +10,6 @@ Dev Flows is a Codex plugin with concise development workflow skills for collect
 - `review-pr`: review a teammate PR and produce GitHub-ready comments.
 - `commit`: stage as needed and create a git commit.
 - `draft-pr`: push the current branch and create a draft PR.
-- `lspyx`: use `lspyx` for semantic Python navigation.
 
 ## Install
 

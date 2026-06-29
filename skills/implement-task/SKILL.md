@@ -1,6 +1,6 @@
 ---
 name: implement-task
-description: Run a task from requirements to PR-ready local changes by collecting context, implementing the smallest scoped change, validating locally, reviewing, fixing findings, and repeating until requirements are met with no actionable review.
+description: Run a task from requirements to PR-ready local changes by collecting context, implementing the smallest scoped change, reviewing, fixing findings, and repeating until requirements are met with no actionable review.
 ---
 
 # Implement Task
