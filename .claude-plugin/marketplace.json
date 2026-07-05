@@ -1,0 +1,15 @@
+{
+  "name": "iyazerski",
+  "owner": {
+    "name": "Ihar Yazerski",
+    "email": "ihar.yazerski@gmail.com",
+    "url": "https://github.com/iyazerski"
+  },
+  "plugins": [
+    {
+      "name": "dev-flows",
+      "source": "./",
+      "description": "Reusable development workflows for code review, commit creation, and draft PRs."
+    }
+  ]
+}

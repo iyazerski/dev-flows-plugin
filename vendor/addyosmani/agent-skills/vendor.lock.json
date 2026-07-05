@@ -11,11 +11,11 @@
     },
     {
       "source": "references/security-checklist.md",
-      "destination": "references/security-checklist.md"
+      "destination": "skills/code-review-and-quality/references/security-checklist.md"
     },
     {
       "source": "references/performance-checklist.md",
-      "destination": "references/performance-checklist.md"
+      "destination": "skills/code-review-and-quality/references/performance-checklist.md"
     },
     {
       "source": "LICENSE",

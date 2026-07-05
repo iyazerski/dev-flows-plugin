@@ -1,0 +1,19 @@
+{
+  "name": "dev-flows",
+  "version": "0.1.7",
+  "description": "Reusable development workflows for code review, commit creation, and draft PRs.",
+  "author": {
+    "name": "Ihar Yazerski",
+    "email": "ihar.yazerski@gmail.com",
+    "url": "https://github.com/iyazerski"
+  },
+  "homepage": "https://github.com/iyazerski/dev-flows-plugin",
+  "repository": "https://github.com/iyazerski/dev-flows-plugin",
+  "license": "MIT",
+  "keywords": [
+    "developer-workflow",
+    "code-review",
+    "pull-requests",
+    "git"
+  ]
+}

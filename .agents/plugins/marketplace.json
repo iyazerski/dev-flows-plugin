@@ -1,0 +1,20 @@
+{
+  "name": "iyazerski",
+  "interface": {
+    "displayName": "Dev Flows"
+  },
+  "plugins": [
+    {
+      "name": "dev-flows",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

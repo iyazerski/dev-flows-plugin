@@ -1,6 +1,6 @@
 # Dev Flows
 
-Dev Flows is a Codex plugin with concise development workflow skills for reviewing code, committing changes, and drafting PRs.
+Dev Flows is a plugin with concise development workflow skills for reviewing code, committing changes, and drafting PRs. It works with both [Codex](#install-codex) and [Claude Code](#install-claude-code) — the same `SKILL.md` files back both.
 
 ## Skills
 
@@ -20,19 +20,33 @@ Refresh vendored files from the pinned upstream commits:
 uv run python scripts/sync_vendors.py
 ```
 
-## Install
+## Install (Codex)
 
-Install globally from GitHub:
+Add the marketplace, then install the plugin:
 
-```bash
-npx codex-marketplace add iyazerski/dev-flows-plugin --plugin --global
+```
+/plugin marketplace add iyazerski/dev-flows-plugin
+/plugin install dev-flows@iyazerski
+/reload-plugins
 ```
 
 Start a new Codex thread after installing so the skills are loaded.
 
+## Install (Claude Code)
+
+Add the marketplace, then install the plugin:
+
+```
+/plugin marketplace add iyazerski/dev-flows-plugin
+/plugin install dev-flows@iyazerski
+```
+
+The skills then load as `code-review-and-quality`, `commit`, and `draft-pr`.
+
 ## Update
 
-Run the install command again after pulling or publishing changes.
+- **Codex:** run `/plugin marketplace update iyazerski`, then reinstall if prompted
+- **Claude Code:** run `/plugin marketplace update iyazerski`, then reinstall if prompted.
 
 ## License
 

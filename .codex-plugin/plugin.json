@@ -1,6 +1,6 @@
 {
-  "name": "dev-flows-plugin",
-  "version": "0.1.6",
+  "name": "dev-flows",
+  "version": "0.1.7",
   "description": "Reusable Codex development workflows for code review, commit creation, and draft PRs.",
   "author": {
     "name": "Ihar Yazerski",
