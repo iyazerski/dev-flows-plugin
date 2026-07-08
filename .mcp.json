@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "lspyx": {
+      "type": "stdio",
+      "command": "lspyx",
+      "args": ["mcp", "serve"]
+    }
+  }
+}

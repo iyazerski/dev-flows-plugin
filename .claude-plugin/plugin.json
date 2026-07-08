@@ -1,7 +1,7 @@
 {
   "name": "dev-flows",
-  "version": "0.1.7",
-  "description": "Reusable development workflows for code review, commit creation, and draft PRs.",
+  "version": "0.2.0",
+  "description": "Reusable development workflows for commit creation and draft PRs, plus the lspyx MCP server for Python semantic code navigation.",
   "author": {
     "name": "Ihar Yazerski",
     "email": "ihar.yazerski@gmail.com",
@@ -12,8 +12,10 @@
   "license": "MIT",
   "keywords": [
     "developer-workflow",
-    "code-review",
     "pull-requests",
-    "git"
+    "git",
+    "mcp",
+    "python",
+    "lsp"
   ]
 }

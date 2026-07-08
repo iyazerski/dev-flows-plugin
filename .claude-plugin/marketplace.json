@@ -9,7 +9,7 @@
     {
       "name": "dev-flows",
       "source": "./",
-      "description": "Reusable development workflows for code review, commit creation, and draft PRs."
+      "description": "Reusable development workflows for commit creation and draft PRs, plus the lspyx MCP server for Python semantic code navigation."
     }
   ]
 }

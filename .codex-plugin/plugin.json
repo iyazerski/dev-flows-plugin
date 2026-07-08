@@ -1,7 +1,7 @@
 {
   "name": "dev-flows",
-  "version": "0.1.7",
-  "description": "Reusable Codex development workflows for code review, commit creation, and draft PRs.",
+  "version": "0.2.0",
+  "description": "Reusable Codex development workflows for commit creation and draft PRs.",
   "author": {
     "name": "Ihar Yazerski",
     "email": "ihar.yazerski@gmail.com",
@@ -13,20 +13,18 @@
   "keywords": [
     "codex",
     "developer-workflow",
-    "code-review",
     "pull-requests",
     "git"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Dev Flows",
-    "shortDescription": "Code review, commit, and draft PR skills.",
-    "longDescription": "Dev Flows packages reusable local development workflows for reviewing code changes, creating git commits, and creating draft pull requests.",
+    "shortDescription": "Commit and draft PR skills.",
+    "longDescription": "Dev Flows packages reusable local development workflows for creating git commits and creating draft pull requests.",
     "developerName": "Ihar Yazerski",
     "category": "Productivity",
     "capabilities": ["Interactive", "Write"],
     "defaultPrompt": [
-      "Review this code change.",
       "Create a git commit.",
       "Create a draft PR for this branch."
     ],
