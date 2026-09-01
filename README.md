@@ -1,6 +1,6 @@
 # Dev Flows
 
-Dev Flows is a plugin with concise development workflow skills for committing changes and drafting PRs, bundled with the [`lspyx`](https://github.com/iyazerski/lspyx) MCP server for Python semantic code navigation. The skills work with both [Codex](#install-codex) and [Claude Code](#install-claude-code) — the same `SKILL.md` files back both.
+Dev Flows is a plugin with concise development workflow skills for committing changes and drafting PRs, bundled with the [`lspyx`](https://github.com/iyazerski/lspyx) MCP server for Python semantic code navigation. The same `SKILL.md` files work with [Codex](#install-codex), [Claude Code](#install-claude-code), and [Pi](#install-pi).
 
 ## Skills
 
@@ -9,10 +9,9 @@ Dev Flows is a plugin with concise development workflow skills for committing ch
 
 ## MCP server
 
-The plugin bundles the [`lspyx`](https://github.com/iyazerski/lspyx) MCP server
-(declared in `.mcp.json`), which exposes the `lspyx_explore` tool for read-only
-semantic navigation of Python workspaces — symbol search, file outlines, hover
-details, definitions, and usages.
+The plugin declares the [`lspyx`](https://github.com/iyazerski/lspyx) MCP server
+in `.mcp.json`, which exposes the `lspyx_explore` tool for read-only semantic
+navigation of Python workspaces.
 
 Install the `lspyx` binary once so the MCP server can start:
 
@@ -22,32 +21,52 @@ curl -fsSL https://raw.githubusercontent.com/iyazerski/lspyx/main/install.sh | s
 
 ## Install (Codex)
 
-Add the marketplace, then install the plugin:
-
-```
-/plugin marketplace add iyazerski/dev-flows-plugin
-/plugin install dev-flows@iyazerski
-/reload-plugins
+```bash
+codex plugin marketplace add iyazerski/dev-flows-plugin
+codex plugin add dev-flows@iyazerski
 ```
 
-Start a new Codex thread after installing so the skills are loaded.
+Start a new Codex task after installing so the skills and MCP server are loaded.
 
 ## Install (Claude Code)
 
-Add the marketplace, then install the plugin:
-
-```
-/plugin marketplace add iyazerski/dev-flows-plugin
-/plugin install dev-flows@iyazerski
+```bash
+claude plugin marketplace add iyazerski/dev-flows-plugin
+claude plugin install dev-flows@iyazerski
 ```
 
-The skills then load as `commit` and `draft-pr`, and the `lspyx` MCP server registers its `lspyx_explore` tool.
+Restart Claude Code or run `/reload-plugins` in the current session.
+
+## Install (Pi)
+
+```bash
+pi install git:github.com/iyazerski/dev-flows-plugin
+```
 
 ## Update
 
-- **Codex plugin:** run `/plugin marketplace update iyazerski`, then reinstall if prompted
-- **Codex agents:** rerun the agent installer command above
-- **Claude Code:** run `/plugin marketplace update iyazerski`, then reinstall if prompted.
+### Codex
+
+```bash
+codex plugin marketplace upgrade iyazerski
+codex plugin add dev-flows@iyazerski
+```
+
+Start a new Codex task after updating.
+
+### Claude Code
+
+```bash
+claude plugin update dev-flows@iyazerski
+```
+
+Restart Claude Code or run `/reload-plugins` inside the current session.
+
+### Pi
+
+```bash
+pi update git:github.com/iyazerski/dev-flows-plugin
+```
 
 ## License
 

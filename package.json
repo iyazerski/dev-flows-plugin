@@ -1,0 +1,9 @@
+{
+  "name": "dev-flows-plugin",
+  "pi": {
+    "skills": [
+      "./skills"
+    ],
+    "mcp": "./.mcp.json"
+  }
+}
