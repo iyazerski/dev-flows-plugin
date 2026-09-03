@@ -1,6 +1,6 @@
 ---
 name: commit
-description: Create a git commit from the current repository changes. Use when the user asks Codex to commit, save changes in git, or create a commit; stages all changes only when nothing is already staged, generates a concise commit message from the staged diff, runs the commit command, and reports the created commit.
+description: Create a git commit from the current repository changes. Use when the user asks to commit, save changes in git, or create a commit; stages all changes only when nothing is already staged, generates a concise commit message from the staged diff, runs the commit command, and reports the created commit.
 ---
 
 # Commit

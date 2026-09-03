@@ -1,6 +1,6 @@
 ---
 name: draft-pr
-description: Create a draft pull request for the current branch. Use when the user asks Codex to open, create, publish, or draft a PR; mirrors the user's latest repo PR when possible, pushes the branch when needed, runs `gh pr create --draft`, and reports the created PR URL.
+description: Create a draft pull request for the current branch. Use when the user asks to open, create, publish, or draft a PR; mirrors the user's latest repo PR when possible, pushes the branch when needed, runs `gh pr create --draft`, and reports the created PR URL.
 ---
 
 # Draft PR

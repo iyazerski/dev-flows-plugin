@@ -1,0 +1,5 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "dev-flows",
+  "description": "Reusable development workflows for commit creation and draft PRs, plus the lspyx MCP server for Python semantic code navigation."
+}
