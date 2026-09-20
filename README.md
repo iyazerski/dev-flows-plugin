@@ -6,9 +6,7 @@ Dev Flows is a plugin with concise development workflow skills, bundled with [`l
 
 - `commit`: stage as needed and create a git commit.
 - `draft-pr`: push the current branch and create a draft PR.
-- `plan-lint`: remove speculative or unauthorized actions before substantial edits.
-- `compare-options`: compare concrete implementation alternatives against verified constraints.
-- `verify-claims`: check completion claims against actual evidence.
+- `semantic-eval`: fast semantic screening, coverage, and rule matching with `jevctl`.
 
 ## MCP server
 

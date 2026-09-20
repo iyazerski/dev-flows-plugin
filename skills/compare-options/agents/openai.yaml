@@ -1,3 +1,0 @@
-interface:
-  display_name: "Compare Options"
-  short_description: "Select the simplest option matching verified constraints"

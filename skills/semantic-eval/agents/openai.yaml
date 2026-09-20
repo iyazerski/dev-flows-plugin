@@ -1,0 +1,3 @@
+interface:
+  display_name: "Semantic Eval"
+  short_description: "Fast semantic screening, coverage, and rule matching with jevctl."

@@ -1,7 +1,7 @@
 {
   "name": "dev-flows",
-  "version": "0.3.0",
-  "description": "Reusable Codex development workflows with fast semantic plan and claim checks.",
+  "version": "0.4.0",
+  "description": "Reusable Codex development workflows with lspyx navigation and jevctl semantic evaluation.",
   "author": {
     "name": "Ihar Yazerski",
     "email": "ihar.yazerski@gmail.com",
@@ -20,7 +20,7 @@
   "interface": {
     "displayName": "Dev Flows",
     "shortDescription": "Fast, evidence-based development workflows.",
-    "longDescription": "Dev Flows packages reusable workflows for commits, draft pull requests, plan linting, option comparison, and completion-claim verification.",
+    "longDescription": "Dev Flows packages reusable workflows for commits, draft pull requests, and fast semantic evaluations with jevctl.",
     "developerName": "Ihar Yazerski",
     "category": "Productivity",
     "capabilities": [
@@ -30,8 +30,7 @@
     "defaultPrompt": [
       "Create a git commit.",
       "Create a draft PR for this branch.",
-      "Check this implementation plan for unnecessary scope.",
-      "Verify these completion claims against the evidence."
+      "Run semantic evaluation on these candidates."
     ],
     "brandColor": "#10A37F",
     "composerIcon": "./assets/logo.png",
