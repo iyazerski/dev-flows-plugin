@@ -3,6 +3,10 @@
     "lspyx": {
       "command": "lspyx",
       "args": ["mcp", "serve"]
+    },
+    "jevctl": {
+      "command": "jevctl",
+      "args": ["mcp", "serve"]
     }
   }
 }

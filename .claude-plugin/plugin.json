@@ -1,7 +1,7 @@
 {
   "name": "dev-flows",
-  "version": "0.2.0",
-  "description": "Reusable development workflows for commit creation and draft PRs, plus the lspyx MCP server for Python semantic code navigation.",
+  "version": "0.3.0",
+  "description": "Reusable development workflows with lspyx navigation and jevctl semantic evaluation.",
   "author": {
     "name": "Ihar Yazerski",
     "email": "ihar.yazerski@gmail.com",
@@ -16,6 +16,7 @@
     "git",
     "mcp",
     "python",
-    "lsp"
+    "lsp",
+    "semantic-evaluation"
   ]
 }

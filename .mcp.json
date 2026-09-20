@@ -4,6 +4,11 @@
       "type": "stdio",
       "command": "lspyx",
       "args": ["mcp", "serve"]
+    },
+    "jevctl": {
+      "type": "stdio",
+      "command": "jevctl",
+      "args": ["mcp", "serve"]
     }
   }
 }

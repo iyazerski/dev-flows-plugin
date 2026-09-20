@@ -1,7 +1,7 @@
 {
   "name": "dev-flows",
-  "version": "0.2.0",
-  "description": "Reusable Codex development workflows for commit creation and draft PRs.",
+  "version": "0.3.0",
+  "description": "Reusable Codex development workflows with fast semantic plan and claim checks.",
   "author": {
     "name": "Ihar Yazerski",
     "email": "ihar.yazerski@gmail.com",
@@ -19,14 +19,19 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Dev Flows",
-    "shortDescription": "Commit and draft PR skills.",
-    "longDescription": "Dev Flows packages reusable local development workflows for creating git commits and creating draft pull requests.",
+    "shortDescription": "Fast, evidence-based development workflows.",
+    "longDescription": "Dev Flows packages reusable workflows for commits, draft pull requests, plan linting, option comparison, and completion-claim verification.",
     "developerName": "Ihar Yazerski",
     "category": "Productivity",
-    "capabilities": ["Interactive", "Write"],
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
     "defaultPrompt": [
       "Create a git commit.",
-      "Create a draft PR for this branch."
+      "Create a draft PR for this branch.",
+      "Check this implementation plan for unnecessary scope.",
+      "Verify these completion claims against the evidence."
     ],
     "brandColor": "#10A37F",
     "composerIcon": "./assets/logo.png",

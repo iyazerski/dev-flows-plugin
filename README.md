@@ -1,22 +1,29 @@
 # Dev Flows
 
-Dev Flows is a plugin with concise development workflow skills for committing changes and drafting PRs, bundled with the [`lspyx`](https://github.com/iyazerski/lspyx) MCP server for Python semantic code navigation. The same `SKILL.md` files work with [Codex](#install-codex), [Claude Code](#install-claude-code), [Pi](#install-pi), and [Antigravity](#install-antigravity).
+Dev Flows is a plugin with concise development workflow skills, bundled with [`lspyx`](https://github.com/iyazerski/lspyx) for Python semantic navigation and [`jevctl`](https://github.com/iyazerski/jevctl) for fast semantic evaluation. The same `SKILL.md` files work with [Codex](#install-codex), [Claude Code](#install-claude-code), [Pi](#install-pi), and [Antigravity](#install-antigravity).
 
 ## Skills
 
 - `commit`: stage as needed and create a git commit.
 - `draft-pr`: push the current branch and create a draft PR.
+- `plan-lint`: remove speculative or unauthorized actions before substantial edits.
+- `compare-options`: compare concrete implementation alternatives against verified constraints.
+- `verify-claims`: check completion claims against actual evidence.
 
 ## MCP server
 
-The plugin declares the [`lspyx`](https://github.com/iyazerski/lspyx) MCP server
-in `.mcp.json` and `mcp_config.json`, which exposes the `lspyx_explore` tool for read-only semantic
-navigation of Python workspaces.
+The plugin declares both MCP servers in `.mcp.json` and `mcp_config.json`. `lspyx` provides read-only semantic navigation for Python workspaces. `jevctl` provides one generic semantic `evaluate` tool used by the skills and available to agents directly.
 
 Install the `lspyx` binary once so the MCP server can start:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/iyazerski/lspyx/main/install.sh | sh
+```
+
+Install `jevctl` and export `TYPESAFE_API_KEY` in the environment inherited by your agent host. The plugin never stores or injects the key:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/iyazerski/jevctl/main/install.sh | sh
 ```
 
 ## Install (Antigravity)
@@ -30,13 +37,17 @@ mkdir -p ~/.gemini/config/plugins
 ln -s "$(pwd)" ~/.gemini/config/plugins/dev-flows
 ```
 
-2. Register the `lspyx` MCP server in your global `~/.gemini/config/mcp_config.json`:
+2. Register the MCP servers in your global `~/.gemini/config/mcp_config.json`:
 
 ```json
 {
   "mcpServers": {
     "lspyx": {
       "command": "lspyx",
+      "args": ["mcp", "serve"]
+    },
+    "jevctl": {
+      "command": "jevctl",
       "args": ["mcp", "serve"]
     }
   }
@@ -52,13 +63,17 @@ mkdir -p .agents/plugins
 ln -s /path/to/dev-flows-plugin .agents/plugins/dev-flows
 ```
 
-2. Register the MCP server in `.agents/mcp_config.json`:
+2. Register the MCP servers in `.agents/mcp_config.json`:
 
 ```json
 {
   "mcpServers": {
     "lspyx": {
       "command": "lspyx",
+      "args": ["mcp", "serve"]
+    },
+    "jevctl": {
+      "command": "jevctl",
       "args": ["mcp", "serve"]
     }
   }
