@@ -8,7 +8,8 @@
     "jevctl": {
       "type": "stdio",
       "command": "jevctl",
-      "args": ["mcp", "serve"]
+      "args": ["mcp", "serve"],
+      "env_vars": ["TYPESAFE_API_KEY"]
     }
   }
 }

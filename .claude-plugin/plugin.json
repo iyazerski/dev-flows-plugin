@@ -1,6 +1,6 @@
 {
   "name": "dev-flows",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Reusable development workflows with lspyx navigation and jevctl semantic evaluation.",
   "author": {
     "name": "Ihar Yazerski",
