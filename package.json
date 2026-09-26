@@ -1,5 +1,6 @@
 {
   "name": "dev-flows-plugin",
+  "version": "0.4.3",
   "pi": {
     "skills": [
       "./skills"

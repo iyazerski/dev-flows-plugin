@@ -6,6 +6,7 @@ Dev Flows is a plugin with concise development workflow skills, bundled with [`l
 
 - `commit`: stage as needed and create a git commit.
 - `draft-pr`: push the current branch and create a draft PR.
+- `second-opinion`: consult other agentic CLIs (`codex`, `agy`, `pi`) for diff and design reviews.
 - `semantic-eval`: fast semantic screening, coverage, and rule matching with `jevctl`.
 
 ## MCP server

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Second Opinion"
+  short_description: "Get a second opinion from agy, pi, or codex on diffs or design approaches."
+  default_prompt: "Ask the other harnesses for a second opinion on this diff."
