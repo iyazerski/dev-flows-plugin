@@ -1,33 +1,43 @@
 ---
 name: second-opinion
-description: Consult the other two agentic harnesses (codex, agy, pi) for an independent second opinion on diffs, plans, or design approaches. Use when the user asks for a second opinion, external review, or sanity check from other AI harnesses.
+description: Consult the other two LLMs for an independent second opinion on diffs, plans, or design approaches. Use when the user asks for a second opinion, external review, or sanity check from other AI models.
 ---
 
 # Second Opinion
 
-Get independent critiques on a proposed design, architecture, or git diff by consulting the other two agentic CLI harnesses.
+Get independent critiques on a proposed design, architecture, or git diff by consulting the other two model families through the `pi` harness.
 
-The three supported harnesses are `codex`, `agy`, and `pi`. The current host harness asks the other two, then presents their feedback and a concise synthesis.
+The three supported model families are Claude, GPT, and Gemini. The host identifies its own model family, asks the other two via `pi`, then presents their feedback and a concise synthesis.
 
 ## Recursion Guard
 
-Never invoke this skill if you are already answering a second opinion or review request from another agent. Only the host agent in the primary chat session calls peer harnesses.
+Never invoke this skill if you are already answering a second opinion or review request from another agent. Only the host agent in the primary chat session calls peer models.
 
-## Harness Roles
+## Peer Models
 
-Determine which two CLIs to call based on your current host harness:
+All peers run in `pi` with these fixed models and thinking levels:
 
-| Current Host | CLIs to Call |
-| :--- | :--- |
-| **Codex** | `agy`, `pi` |
-| **Pi** | `codex`, `agy` |
-| **Antigravity (agy)** | `codex`, `pi` |
+| Family     | Model              | Thinking |
+| :--------- | :----------------- | :------- |
+| **Claude** | `claude-opus-5-5`  | `medium` |
+| **GPT**    | `gpt-6-sol`        | `high`   |
+| **Gemini** | `gemini-3.8-flash` | `high`   |
 
-Never call your own CLI. Only invoke the other two.
+Determine the host family from your own model (in pi, check `$PI_MODEL`): `claude-*` is Claude, `gpt-*` is GPT, `gemini-*` is Gemini. Never call your own family. Only invoke the other two.
 
-## Verified CLI Commands
+### Availability
 
-All harnesses use default models, default reasoning settings, and their installed skills for full project context. Run them non-interactively with standard tool permissions so they can run tests and inspect code, but instruct them via prompt not to edit repository files.
+Some models may not be configured. Check each peer before running it. `pi --list-models` search is fuzzy, so match the model column exactly:
+
+```bash
+pi --list-models "$MODEL" | awk -v m="$MODEL" '$2 == m { found = 1 } END { exit !found }'
+```
+
+Skip unavailable peers and mention it in the report. If only one peer is available, use that single opinion. If none are available, tell the user and stop.
+
+## Verified CLI Command
+
+Run peers non-interactively with standard tool permissions so they can run tests and inspect code, but instruct them via prompt not to edit repository files. They use their installed skills for full project context.
 
 Create a private temp directory to avoid collisions:
 
@@ -35,25 +45,13 @@ Create a private temp directory to avoid collisions:
 TMP_DIR=$(mktemp -d)
 ```
 
-### Codex
-```bash
-cat "$TMP_DIR/prompt.txt" | codex exec --ephemeral --skip-git-repo-check -o "$TMP_DIR/codex_out.txt" -
-```
-- `--ephemeral`: Avoids saving session history.
-- `--skip-git-repo-check`: Allows running design reviews outside a git repo.
-- `-o <file>`: Writes clean response text directly to file without metadata.
+Run one peer (`$NAME` is `claude`, `gpt`, or `gemini`):
 
-### AGY
 ```bash
-agy --dangerously-skip-permissions -p "$(< "$TMP_DIR/prompt.txt")" > "$TMP_DIR/agy_out.txt"
+pi --model "$MODEL" --thinking "$THINKING" --exclude-tools edit,write --no-session -p < "$TMP_DIR/prompt.txt" > "$TMP_DIR/${NAME}_out.txt"
 ```
-- `-p`: Runs non-interactively and prints the response.
-- `--dangerously-skip-permissions`: Auto-approves tool execution in headless mode.
 
-### Pi
-```bash
-cat "$TMP_DIR/prompt.txt" | pi --exclude-tools edit,write --no-session -p > "$TMP_DIR/pi_out.txt"
-```
+- `--model` / `--thinking`: Pin the peer model and reasoning level from the table above.
 - `--exclude-tools edit,write`: Keeps `bash` and `read` active for running tests and inspections while preventing source file edits.
 - `--no-session`: Runs ephemerally without persisting session files.
 
@@ -79,6 +77,7 @@ cat "$TMP_DIR/prompt.txt" | pi --exclude-tools edit,write --no-session -p > "$TM
 
 2. **Prepare Prompt:**
    Write the instructions first, then append the diff or approach text. Explicitly state the target feature scope and instruct the peer not to edit files or trigger a second opinion:
+
    ```bash
    cat <<'EOF' > "$TMP_DIR/prompt.txt"
    Your task is to provide a text review only. Do not edit, patch, or modify any repository files. Do not invoke the second-opinion skill. You may use bash to inspect code, run tests, or check dependencies if needed.
@@ -92,17 +91,18 @@ cat "$TMP_DIR/prompt.txt" | pi --exclude-tools edit,write --no-session -p > "$TM
    cat "$TMP_DIR/diff.patch" >> "$TMP_DIR/prompt.txt"
    ```
 
-3. **Run Both CLIs:**
-   Run the commands for both peer harnesses and capture their responses. If one CLI fails or is missing, report the error and proceed with the other.
+3. **Run Available Peers:**
+   Run the command for each available peer model, in parallel when possible, and capture their responses. If one peer fails, report the error and proceed with the other.
 
 4. **Clean Up:**
    Remove temporary directory:
+
    ```bash
    rm -rf "$TMP_DIR"
    ```
 
 5. **Synthesize & Report:**
-   - **Individual Findings:** Bullet-point summary of each CLI's key points.
-   - **Consensus:** Items both CLIs agreed on.
-   - **Disagreements / Unique Points:** Noteworthy issues caught by only one CLI.
+   - **Individual Findings:** Bullet-point summary of each peer model's key points. Note any skipped or failed peers.
+   - **Consensus:** Items both peers agreed on (skip with a single peer).
+   - **Disagreements / Unique Points:** Noteworthy issues caught by only one peer (skip with a single peer).
    - **Host Recommendation:** Your final takeaway or suggested changes.
