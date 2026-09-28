@@ -9,8 +9,7 @@
       "args": ["mcp", "serve"]
     },
     "chrome-devtools": {
-      "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp@latest", "--autoConnect"]
+      "serverUrl": "http://127.0.0.1:8765/chrome-devtools/mcp"
     }
   }
 }

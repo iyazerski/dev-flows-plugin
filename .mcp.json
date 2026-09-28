@@ -12,9 +12,8 @@
       "env_vars": ["TYPESAFE_API_KEY"]
     },
     "chrome-devtools": {
-      "type": "stdio",
-      "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp@latest", "--autoConnect"]
+      "type": "http",
+      "url": "http://127.0.0.1:8765/chrome-devtools/mcp"
     }
   }
 }

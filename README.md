@@ -13,19 +13,28 @@ Dev Flows is a plugin with concise development workflow skills, bundled with [`l
 
 The plugin declares all MCP servers in `.mcp.json` and `mcp_config.json`. `lspyx` provides read-only semantic navigation for Python workspaces. `jevctl` provides one generic semantic `evaluate` tool used by the skills and available to agents directly.
 
-Install the `lspyx` binary once so the MCP server can start:
+`chrome-devtools-mcp` runs as one shared background service behind [`mcp-proxy`](https://github.com/TBXark/mcp-proxy), so every harness and thread uses the same instance instead of starting its own. It uses `--autoConnect`, so it attaches to your running Chrome (144+) instead of launching a new one. Page tools take a `pageId`, so concurrent agents can work in separate tabs.
+
+Install everything on macOS with one command (Node.js required for `chrome-devtools-mcp`):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/iyazerski/lspyx/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/iyazerski/dev-flows-plugin/main/scripts/install.sh | sh
 ```
 
-Install `jevctl` and export `TYPESAFE_API_KEY` in the environment inherited by your agent host. The plugin never stores or injects the key:
+The script is safe to re-run. It:
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/iyazerski/jevctl/main/install.sh | sh
-```
+- installs `lspyx`, `jevctl`, `chrome-devtools-mcp`, and `mcp-proxy` if they are missing, and skips the installed ones;
+- adds a `chrome-devtools` entry to `~/.config/mcp-proxy/config.json` and keeps any other servers there, so the same `mcp-proxy` can serve other projects;
+- starts `mcp-proxy` as the launchd agent `com.github.tbxark.mcp-proxy` if it is not running, or restarts it only when the config changed.
 
-`chrome-devtools-mcp` runs via `npx` (Node.js required) with `--autoConnect`, so it attaches to your running Chrome (144+) instead of launching a new one. Enable remote debugging once in Chrome at `chrome://inspect/#remote-debugging`.
+Then:
+
+- export `TYPESAFE_API_KEY` in the environment inherited by your agent host for `jevctl`. The plugin never stores or injects the key;
+- enable remote debugging once in Chrome at `chrome://inspect/#remote-debugging`.
+
+The plugin connects to `http://127.0.0.1:8765/chrome-devtools/mcp`. `mcp-proxy` reconnects if `chrome-devtools-mcp` exits. File-writing tools can save anywhere under your home directory. Logs are in `~/Library/Logs/mcp-proxy.log`.
+
+To update `chrome-devtools-mcp`, run `npm install -g chrome-devtools-mcp@latest` and restart the agent with `launchctl kickstart -k "gui/$(id -u)/com.github.tbxark.mcp-proxy"`.
 
 ## Install
 
@@ -57,7 +66,7 @@ claude plugin install dev-flows@iyazerski
 To update the plugin, run:
 
 ```bash
-claude plugin update dev-flows@iyazerski 
+claude plugin update dev-flows@iyazerski
 ```
 
 Restart Claude Code or run `/reload-plugins` in the current session.
