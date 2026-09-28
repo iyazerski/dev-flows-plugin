@@ -7,6 +7,10 @@
     "jevctl": {
       "command": "jevctl",
       "args": ["mcp", "serve"]
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest", "--autoConnect"]
     }
   }
 }

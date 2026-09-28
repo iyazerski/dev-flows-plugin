@@ -10,6 +10,11 @@
       "command": "jevctl",
       "args": ["mcp", "serve"],
       "env_vars": ["TYPESAFE_API_KEY"]
+    },
+    "chrome-devtools": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest", "--autoConnect"]
     }
   }
 }
