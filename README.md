@@ -1,6 +1,6 @@
 # Dev Flows
 
-Dev Flows is a plugin with concise development workflow skills, bundled with [`lspyx`](https://github.com/iyazerski/lspyx) for Python semantic navigation, [`jevctl`](https://github.com/iyazerski/jevctl) for fast semantic evaluation, and [`chrome-devtools-mcp`](https://github.com/ChromeDevTools/chrome-devtools-mcp) for browser debugging. The same `SKILL.md` files work with [Codex](#install-codex), [Claude Code](#install-claude-code), [Pi](#install-pi), and [Antigravity](#install-antigravity).
+Dev Flows is a plugin with concise development workflow skills, bundled with [`lspyx`](https://github.com/iyazerski/lspyx) for Python semantic navigation, [`jevctl`](https://github.com/iyazerski/jevctl) for fast semantic evaluation, [`chrome-devtools-mcp`](https://github.com/ChromeDevTools/chrome-devtools-mcp) for browser debugging, and [`cua-driver`](https://github.com/trycua/cua/tree/main/libs/cua-driver) for desktop app automation. The same `SKILL.md` files work with [Codex](#install-codex), [Claude Code](#install-claude-code), [Pi](#install-pi), and [Antigravity](#install-antigravity).
 
 ## Skills
 
@@ -23,14 +23,15 @@ curl -fsSL https://raw.githubusercontent.com/iyazerski/dev-flows-plugin/main/scr
 
 The script is safe to re-run. It:
 
-- installs `lspyx`, `jevctl`, `chrome-devtools-mcp`, and `mcp-proxy` if they are missing, and skips the installed ones;
+- installs `lspyx`, `jevctl`, `chrome-devtools-mcp`, `mcp-proxy`, and `cua-driver` if they are missing, and skips the installed ones;
 - adds a `chrome-devtools` entry to `~/.config/mcp-proxy/config.json` and keeps any other servers there, so the same `mcp-proxy` can serve other projects;
 - starts `mcp-proxy` as the launchd agent `com.github.tbxark.mcp-proxy` if it is not running, or restarts it only when the config changed.
 
 Then:
 
 - export `TYPESAFE_API_KEY` in the environment inherited by your agent host for `jevctl`. The plugin never stores or injects the key;
-- enable remote debugging once in Chrome at `chrome://inspect/#remote-debugging`.
+- enable remote debugging once in Chrome at `chrome://inspect/#remote-debugging`;
+- run `cua-driver permissions grant` once to allow Accessibility and Screen Recording for `CuaDriver.app`.
 
 The plugin connects to `http://127.0.0.1:8765/chrome-devtools/mcp`. `mcp-proxy` reconnects if `chrome-devtools-mcp` exits. File-writing tools can save anywhere under your home directory. Logs are in `~/Library/Logs/mcp-proxy.log`.
 

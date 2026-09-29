@@ -64,6 +64,7 @@ if ! installed chrome-devtools-mcp; then
   npm install -g chrome-devtools-mcp@latest
 fi
 installed mcp-proxy || install_mcp_proxy
+installed cua-driver || curl -fsSL https://cua.ai/driver/install.sh | bash
 
 mkdir -p "$(dirname "$CONFIG")" "$(dirname "$PLIST")" "$(dirname "$LOG")"
 
@@ -150,4 +151,5 @@ fi
 if [ -z "${TYPESAFE_API_KEY:-}" ]; then
   echo "note: export TYPESAFE_API_KEY in the environment of your agent host for jevctl"
 fi
+echo "note: run 'cua-driver permissions grant' once to allow Accessibility and Screen Recording"
 echo "chrome-devtools-mcp is shared at http://$CONFIGURED_ADDR/chrome-devtools/mcp"
