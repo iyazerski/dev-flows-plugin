@@ -5,12 +5,6 @@
       "command": "lspyx",
       "args": ["mcp", "serve"]
     },
-    "jevctl": {
-      "type": "stdio",
-      "command": "jevctl",
-      "args": ["mcp", "serve"],
-      "env_vars": ["TYPESAFE_API_KEY"]
-    },
     "chrome-devtools": {
       "type": "http",
       "url": "http://127.0.0.1:8765/chrome-devtools/mcp"

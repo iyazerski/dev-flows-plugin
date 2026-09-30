@@ -1,7 +1,7 @@
 {
   "name": "dev-flows",
-  "version": "0.5.2",
-  "description": "Reusable Codex development workflows with lspyx navigation and jevctl semantic evaluation.",
+  "version": "0.6.0",
+  "description": "Reusable Codex development workflows with lspyx navigation.",
   "author": {
     "name": "Ihar Yazerski",
     "email": "ihar.yazerski@gmail.com",
@@ -21,7 +21,7 @@
   "interface": {
     "displayName": "Dev Flows",
     "shortDescription": "Fast, evidence-based development workflows.",
-    "longDescription": "Dev Flows packages reusable workflows for commits, draft pull requests, and fast semantic evaluations with jevctl.",
+    "longDescription": "Dev Flows packages reusable workflows for commits, draft pull requests, and second opinions.",
     "developerName": "Ihar Yazerski",
     "category": "Productivity",
     "capabilities": [
@@ -31,8 +31,7 @@
     "defaultPrompt": [
       "Create a git commit.",
       "Create a draft PR for this branch.",
-      "Ask for a second opinion on this diff or design.",
-      "Run semantic evaluation on these candidates."
+      "Ask for a second opinion on this diff or design."
     ],
     "brandColor": "#10A37F",
     "composerIcon": "./assets/logo.png",

@@ -20,7 +20,7 @@ All peers run in `pi` with these fixed models and thinking levels:
 | Family     | Model              | Thinking |
 | :--------- | :----------------- | :------- |
 | **Claude** | `claude-opus-5-5`  | `medium` |
-| **GPT**    | `gpt-6-sol`        | `high`   |
+| **GPT**    | `gpt-6.1-sol`      | `high`   |
 | **Gemini** | `gemini-3.8-flash` | `high`   |
 
 Determine the host family from your own model (in pi, check `$PI_MODEL`): `claude-*` is Claude, `gpt-*` is GPT, `gemini-*` is Gemini. Never call your own family. Only invoke the other two.

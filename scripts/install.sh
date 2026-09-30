@@ -58,7 +58,6 @@ require curl "install curl"
 require jq "install jq"
 
 installed lspyx || curl -fsSL https://raw.githubusercontent.com/iyazerski/lspyx/main/install.sh | sh
-installed jevctl || curl -fsSL https://raw.githubusercontent.com/iyazerski/jevctl/main/install.sh | sh
 if ! installed chrome-devtools-mcp; then
   require npm "install Node.js"
   npm install -g chrome-devtools-mcp@latest
@@ -148,8 +147,5 @@ else
   echo "mcp-proxy: running, config unchanged"
 fi
 
-if [ -z "${TYPESAFE_API_KEY:-}" ]; then
-  echo "note: export TYPESAFE_API_KEY in the environment of your agent host for jevctl"
-fi
 echo "note: run 'cua-driver permissions grant' once to allow Accessibility and Screen Recording"
 echo "chrome-devtools-mcp is shared at http://$CONFIGURED_ADDR/chrome-devtools/mcp"

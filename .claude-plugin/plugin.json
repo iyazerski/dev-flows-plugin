@@ -1,7 +1,7 @@
 {
   "name": "dev-flows",
-  "version": "0.5.2",
-  "description": "Reusable development workflows with lspyx navigation and jevctl semantic evaluation.",
+  "version": "0.6.0",
+  "description": "Reusable development workflows with lspyx navigation.",
   "author": {
     "name": "Ihar Yazerski",
     "email": "ihar.yazerski@gmail.com",
@@ -16,7 +16,6 @@
     "git",
     "mcp",
     "python",
-    "lsp",
-    "semantic-evaluation"
+    "lsp"
   ]
 }

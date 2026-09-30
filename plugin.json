@@ -1,5 +1,5 @@
 {
   "$schema": "https://antigravity.google/schemas/v1/plugin.json",
   "name": "dev-flows",
-  "description": "Reusable development workflows with lspyx navigation and jevctl semantic evaluation."
+  "description": "Reusable development workflows with lspyx navigation."
 }

@@ -4,10 +4,6 @@
       "command": "lspyx",
       "args": ["mcp", "serve"]
     },
-    "jevctl": {
-      "command": "jevctl",
-      "args": ["mcp", "serve"]
-    },
     "chrome-devtools": {
       "serverUrl": "http://127.0.0.1:8765/chrome-devtools/mcp"
     },

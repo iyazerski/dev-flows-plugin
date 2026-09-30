@@ -1,17 +1,16 @@
 # Dev Flows
 
-Dev Flows is a plugin with concise development workflow skills, bundled with [`lspyx`](https://github.com/iyazerski/lspyx) for Python semantic navigation, [`jevctl`](https://github.com/iyazerski/jevctl) for fast semantic evaluation, [`chrome-devtools-mcp`](https://github.com/ChromeDevTools/chrome-devtools-mcp) for browser debugging, and [`cua-driver`](https://github.com/trycua/cua/tree/main/libs/cua-driver) for desktop app automation. The same `SKILL.md` files work with [Codex](#install-codex), [Claude Code](#install-claude-code), [Pi](#install-pi), and [Antigravity](#install-antigravity).
+Dev Flows is a plugin with concise development workflow skills, bundled with [`lspyx`](https://github.com/iyazerski/lspyx) for Python semantic navigation, [`chrome-devtools-mcp`](https://github.com/ChromeDevTools/chrome-devtools-mcp) for browser debugging, and [`cua-driver`](https://github.com/trycua/cua/tree/main/libs/cua-driver) for desktop app automation. The same `SKILL.md` files work with [Codex](#install-codex), [Claude Code](#install-claude-code), [Pi](#install-pi), and [Antigravity](#install-antigravity).
 
 ## Skills
 
 - `commit`: stage as needed and create a git commit.
 - `draft-pr`: push the current branch and create a draft PR.
 - `second-opinion`: consult other model families (Claude, GPT, Gemini) via `pi` for diff and design reviews.
-- `semantic-eval`: fast semantic screening, coverage, and rule matching with `jevctl`.
 
 ## MCP servers
 
-The plugin declares all MCP servers in `.mcp.json` and `mcp_config.json`. `lspyx` provides read-only semantic navigation for Python workspaces. `jevctl` provides one generic semantic `evaluate` tool used by the skills and available to agents directly.
+The plugin declares all MCP servers in `.mcp.json` and `mcp_config.json`. `lspyx` provides read-only semantic navigation for Python workspaces.
 
 `chrome-devtools-mcp` runs as one shared background service behind [`mcp-proxy`](https://github.com/TBXark/mcp-proxy), so every harness and thread uses the same instance instead of starting its own. It uses `--autoConnect`, so it attaches to your running Chrome (144+) instead of launching a new one. Page tools take a `pageId`, so concurrent agents can work in separate tabs.
 
@@ -23,13 +22,12 @@ curl -fsSL https://raw.githubusercontent.com/iyazerski/dev-flows-plugin/main/scr
 
 The script is safe to re-run. It:
 
-- installs `lspyx`, `jevctl`, `chrome-devtools-mcp`, `mcp-proxy`, and `cua-driver` if they are missing, and skips the installed ones;
+- installs `lspyx`, `chrome-devtools-mcp`, `mcp-proxy`, and `cua-driver` if they are missing, and skips the installed ones;
 - adds a `chrome-devtools` entry to `~/.config/mcp-proxy/config.json` and keeps any other servers there, so the same `mcp-proxy` can serve other projects;
 - starts `mcp-proxy` as the launchd agent `com.github.tbxark.mcp-proxy` if it is not running, or restarts it only when the config changed.
 
 Then:
 
-- export `TYPESAFE_API_KEY` in the environment inherited by your agent host for `jevctl`. The plugin never stores or injects the key;
 - enable remote debugging once in Chrome at `chrome://inspect/#remote-debugging`;
 - run `cua-driver permissions grant` once to allow Accessibility and Screen Recording for `CuaDriver.app`.
 
