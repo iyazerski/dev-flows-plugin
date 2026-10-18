@@ -17,6 +17,11 @@ LOG="$HOME/Library/Logs/mcp-proxy.log"
 DOMAIN="gui/$(id -u)"
 
 PATH="$BIN:$PATH"
+# fnm puts a per-shell link dir on PATH that can be removed after the shell exits. The PATH saved below for
+# launchd must outlive this shell, so use fnm's default alias instead, which stays put across shells and upgrades.
+if [ -n "${FNM_MULTISHELL_PATH:-}" ] && [ -d "${FNM_DIR:-}/aliases/default/bin" ]; then
+  PATH=$(printf '%s' "$PATH" | sed "s|$FNM_MULTISHELL_PATH/bin|$FNM_DIR/aliases/default/bin|g")
+fi
 export PATH
 
 TMP=$(mktemp -d)
@@ -97,9 +102,11 @@ fi
 # --workspace lets file-writing tools save under $HOME: a shared server cannot use per-client MCP roots.
 # Telemetry and update checks are off because each spawns an extra node process.
 # autoReconnect restarts chrome-devtools-mcp after 3 failed pings if it exits.
-jq --arg command "$(command -v chrome-devtools-mcp)" --arg workspace "--workspace=$HOME" '
+# The bare command name resolves through the launchd agent's PATH, which must already hold node for the server's
+# shebang, so the entry keeps working when Node or its version manager moves the executable.
+jq --arg workspace "--workspace=$HOME" '
   .mcpServers["chrome-devtools"] = {
-    command: $command,
+    command: "chrome-devtools-mcp",
     args: ["--autoConnect", "--no-usage-statistics", $workspace],
     env: {CHROME_DEVTOOLS_MCP_NO_UPDATE_CHECKS: "1"},
     timeout: "300s",
