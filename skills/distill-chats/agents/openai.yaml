@@ -1,0 +1,4 @@
+interface:
+  display_name: "Distill Chats"
+  short_description: "Export recent Zeron chats for a project and turn verified gotchas into AGENTS.md, skill, or wiki updates."
+  default_prompt: "Distill the last 30 days of chats in this project into AGENTS.md updates."

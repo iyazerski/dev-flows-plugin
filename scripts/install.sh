@@ -64,6 +64,12 @@ if ! installed chrome-devtools-mcp; then
 fi
 installed mcp-proxy || install_mcp_proxy
 installed cua-driver || curl -fsSL https://cua.ai/driver/install.sh | bash
+# zeron-tools (used by the distill-chats skill) ships for Apple silicon only, like Zeron.
+if [ "$(uname -m)" = "arm64" ]; then
+  installed zeron-tools || curl -fsSL https://raw.githubusercontent.com/iyazerski/zeron-tools/main/install.sh | sh
+else
+  echo "zeron-tools: skipped (Apple silicon only)"
+fi
 
 mkdir -p "$(dirname "$CONFIG")" "$(dirname "$PLIST")" "$(dirname "$LOG")"
 

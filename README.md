@@ -7,6 +7,7 @@ Dev Flows is a plugin with concise development workflow skills, bundled with [`l
 - `commit`: stage as needed and create a git commit.
 - `draft-pr`: push the current branch and create a draft PR.
 - `second-opinion`: consult other model families (Claude, GPT, Gemini) via `pi` for diff and design reviews.
+- `distill-chats`: export recent project chats from [Zeron](https://github.com/zeronsh/zeron) with [`zeron-tools`](https://github.com/iyazerski/zeron-tools) and turn verified gotchas and workarounds into `AGENTS.md`, skill, or wiki updates.
 
 ## MCP servers
 
@@ -22,7 +23,7 @@ curl -fsSL https://raw.githubusercontent.com/iyazerski/dev-flows-plugin/main/scr
 
 The script is safe to re-run. It:
 
-- installs `lspyx`, `chrome-devtools-mcp`, `mcp-proxy`, and `cua-driver` if they are missing, and skips the installed ones;
+- installs `lspyx`, `chrome-devtools-mcp`, `mcp-proxy`, `cua-driver`, and `zeron-tools` (Apple silicon only) if they are missing, and skips the installed ones;
 - adds a `chrome-devtools` entry to `~/.config/mcp-proxy/config.json` and keeps any other servers there, so the same `mcp-proxy` can serve other projects;
 - starts `mcp-proxy` as the launchd agent `com.github.tbxark.mcp-proxy` if it is not running, or restarts it only when the config changed.
 
