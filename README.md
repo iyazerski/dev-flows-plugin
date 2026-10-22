@@ -15,7 +15,7 @@ The plugin declares all MCP servers in `.mcp.json` and `mcp_config.json`. `lspyx
 
 `chrome-devtools-mcp` runs as one shared background service behind [`mcp-proxy`](https://github.com/TBXark/mcp-proxy), so every harness and thread uses the same instance instead of starting its own. It uses `--autoConnect`, so it attaches to your running Chrome (144+) instead of launching a new one. Page tools take a `pageId`, so concurrent agents can work in separate tabs.
 
-Install everything on macOS with one command (Node.js required for `chrome-devtools-mcp`):
+Install everything on macOS with one command ([Bun](https://bun.com) required for `chrome-devtools-mcp`):
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/iyazerski/dev-flows-plugin/main/scripts/install.sh | sh
@@ -23,8 +23,8 @@ curl -fsSL https://raw.githubusercontent.com/iyazerski/dev-flows-plugin/main/scr
 
 The script is safe to re-run. It:
 
-- installs `lspyx`, `chrome-devtools-mcp`, `mcp-proxy`, `cua-driver`, and `zeron-tools` (Apple silicon only) if they are missing, and skips the installed ones;
-- adds a `chrome-devtools` entry to `~/.config/mcp-proxy/config.json` and keeps any other servers there, so the same `mcp-proxy` can serve other projects;
+- installs `lspyx`, `chrome-devtools-mcp` (with Bun), `mcp-proxy`, `cua-driver`, and `zeron-tools` (Apple silicon only) if they are missing, and skips the installed ones;
+- adds a `chrome-devtools` entry that runs it on Bun to `~/.config/mcp-proxy/config.json` and keeps any other servers there, so the same `mcp-proxy` can serve other projects;
 - starts `mcp-proxy` as the launchd agent `com.github.tbxark.mcp-proxy` if it is not running, or restarts it only when the config changed.
 
 Then:
@@ -34,7 +34,7 @@ Then:
 
 The plugin connects to `http://127.0.0.1:8765/chrome-devtools/mcp`. `mcp-proxy` reconnects if `chrome-devtools-mcp` exits. File-writing tools can save anywhere under your home directory. Logs are in `~/Library/Logs/mcp-proxy.log`.
 
-To update `chrome-devtools-mcp`, run `npm install -g chrome-devtools-mcp@latest` and restart the agent with `launchctl kickstart -k "gui/$(id -u)/com.github.tbxark.mcp-proxy"`.
+To update `chrome-devtools-mcp`, run `bun add -g chrome-devtools-mcp@latest` and restart the agent with `launchctl kickstart -k "gui/$(id -u)/com.github.tbxark.mcp-proxy"`.
 
 ## Install
 

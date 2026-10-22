@@ -16,13 +16,7 @@ PLIST="$HOME/Library/LaunchAgents/$LABEL.plist"
 LOG="$HOME/Library/Logs/mcp-proxy.log"
 DOMAIN="gui/$(id -u)"
 
-PATH="$BIN:$PATH"
-# fnm puts a per-shell link dir on PATH that can be removed after the shell exits. The PATH saved below for
-# launchd must outlive this shell, so use fnm's default alias instead, which stays put across shells and upgrades.
-if [ -n "${FNM_MULTISHELL_PATH:-}" ] && [ -d "${FNM_DIR:-}/aliases/default/bin" ]; then
-  PATH=$(printf '%s' "$PATH" | sed "s|$FNM_MULTISHELL_PATH/bin|$FNM_DIR/aliases/default/bin|g")
-fi
-export PATH
+export PATH="$BIN:$PATH"
 
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT HUP INT TERM
@@ -61,11 +55,17 @@ install_mcp_proxy() {
 
 require curl "install curl"
 require jq "install jq"
+require bun "install Bun from https://bun.com"
+
+BUN=$(command -v bun)
+CHROME_DEVTOOLS_MCP="$(bun pm bin -g)/chrome-devtools-mcp"
 
 installed lspyx || curl -fsSL https://raw.githubusercontent.com/iyazerski/lspyx/main/install.sh | sh
-if ! installed chrome-devtools-mcp; then
-  require npm "install Node.js"
-  npm install -g chrome-devtools-mcp@latest
+if [ -x "$CHROME_DEVTOOLS_MCP" ]; then
+  echo "chrome-devtools-mcp: already installed"
+else
+  echo "chrome-devtools-mcp: installing..."
+  bun add -g chrome-devtools-mcp@latest
 fi
 installed mcp-proxy || install_mcp_proxy
 installed cua-driver || curl -fsSL https://cua.ai/driver/install.sh | bash
@@ -100,14 +100,14 @@ fi
 
 # Upsert only the chrome-devtools entry, so servers added by other projects are kept.
 # --workspace lets file-writing tools save under $HOME: a shared server cannot use per-client MCP roots.
-# Telemetry and update checks are off because each spawns an extra node process.
+# Telemetry and update checks are off because each spawns an extra process.
 # autoReconnect restarts chrome-devtools-mcp after 3 failed pings if it exits.
-# The bare command name resolves through the launchd agent's PATH, which must already hold node for the server's
-# shebang, so the entry keeps working when Node or its version manager moves the executable.
-jq --arg workspace "--workspace=$HOME" '
+# The server's shebang asks for node, so run it with bun --bun instead. Absolute paths keep the entry independent of
+# the launchd agent's PATH, and re-running this script rewrites them if Bun moves.
+jq --arg bun "$BUN" --arg server "$CHROME_DEVTOOLS_MCP" --arg workspace "--workspace=$HOME" '
   .mcpServers["chrome-devtools"] = {
-    command: "chrome-devtools-mcp",
-    args: ["--autoConnect", "--no-usage-statistics", $workspace],
+    command: $bun,
+    args: ["--bun", $server, "--autoConnect", "--no-usage-statistics", $workspace],
     env: {CHROME_DEVTOOLS_MCP_NO_UPDATE_CHECKS: "1"},
     timeout: "300s",
     options: {autoReconnect: true, pingInterval: "5s"}
@@ -121,7 +121,7 @@ if ! cmp -s "$TMP/config.json" "$CONFIG"; then
 fi
 
 if ! launchctl print "$DOMAIN/$LABEL" >/dev/null 2>&1; then
-  # launchd starts agents with a minimal PATH, so pass the current one for server shebangs like node.
+  # launchd starts agents with a minimal PATH, so pass the current one for tools that servers spawn.
   cat > "$PLIST" <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
