@@ -1,0 +1,32 @@
+name: Sync vendored skills
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: scripts/sync-skills.sh
+      - name: Commit upstream changes
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Vendored skills are up to date"
+            exit 0
+          fi
+          # An upstream skill update is a patch release of the plugin.
+          version=$(jq -r .version package.json)
+          next="${version%.*}.$((${version##*.} + 1))"
+          sed -i "s/\"version\": \"$version\"/\"version\": \"$next\"/" \
+            package.json .claude-plugin/plugin.json .codex-plugin/plugin.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Sync vendored skills with upstream releases, bump to $next"
+          git push

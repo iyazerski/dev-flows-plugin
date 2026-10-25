@@ -8,6 +8,7 @@ Dev Flows is a plugin with concise development workflow skills, bundled with [`l
 - `draft-pr`: push the current branch and create a draft PR.
 - `second-opinion`: consult other model families (Claude, GPT, Gemini) via `pi` for diff and design reviews.
 - `distill-chats`: export recent project chats from [Zeron](https://github.com/zeronsh/zeron) with [`zeron-tools`](https://github.com/iyazerski/zeron-tools) and turn verified gotchas and workarounds into `AGENTS.md`, skill, or wiki updates.
+- `rust-best-practices`: write idiomatic, robust Rust. Mirrored from [BeautifulRust](https://github.com/morganlinton/BeautifulRust) (MIT) by `scripts/sync-skills.sh`. A weekly workflow commits new upstream releases and bumps the plugin's patch version. Do not edit it here.
 
 ## MCP servers
 
