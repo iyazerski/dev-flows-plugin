@@ -1,40 +1,52 @@
 ---
 name: distill-chats
-description: Distill recent agent chats for a project into durable project knowledge. Use when the user asks to analyze, review, or learn from past chats or sessions and extract gotchas, findings, corrections, or workarounds into AGENTS.md, skills, rules, or wiki pages; exports chats from Zeron with `zeron-tools`, extracts and verifies candidate findings, and proposes targeted documentation changes.
+description: Distill recent agent chats for a project into durable project knowledge. Use when the user asks to analyze, review, or learn from past chats or sessions and extract gotchas, findings, corrections, or workarounds into AGENTS.md, skills, rules, or wiki pages; renders pi session files to Markdown with `jq`, extracts and verifies candidate findings, and proposes targeted documentation changes.
 ---
 
 # Distill Chats
 
 Turn recent agent chats for a project into short, verified additions to the project's agent knowledge. The goal is that future agents stop repeating the same mistakes and rediscovering the same workarounds.
 
-Zeron aggregates chats from Codex, Claude Code, and Pi, so one export covers every harness.
+The chats are [pi](https://github.com/earendil-works/pi) sessions. That includes pi chats started from Zeron.
 
 ## Scope
 
-Settle these before exporting. Use the user's values when given, otherwise the defaults:
+Settle these before reading. Use the user's values when given, otherwise the defaults:
 
-- **Project:** the current repository. Zeron matches a project by name or by its root folder, so pass `git rev-parse --show-toplevel`, not a subfolder. An unknown project fails with a list of known project names.
-- **Window:** the last 30 days (`--since 30d`). Also accepts `4w` or a `YYYY-MM-DD` date.
+- **Project:** the current repository, `git rev-parse --show-toplevel`. Sessions started in its subfolders count too.
+- **Window:** the last 30 days, by each session's last activity.
 - **Targets:** the files that hold agent knowledge for this project, such as `AGENTS.md`, `CLAUDE.md`, `.claude/rules/`, project skills, or wiki pages. Discover them in the repo and in skills the project already uses. If none exist, propose `AGENTS.md`.
 
-## Export
+## Read Sessions
 
-Write one Markdown file per chat into a private temp folder. Leave out the tool log for the first pass:
+Pi stores each session as a JSONL file at `~/.pi/agent/sessions/--<cwd with / replaced by ->--/<start time>_<session id>.jsonl`, unless `PI_CODING_AGENT_SESSION_DIR` or the `sessionDir` setting in `~/.pi/agent/settings.json` moves it. The first line is a header with the session's `cwd`. `docs/session-format.md` in the pi package describes every entry type.
+
+List the sessions of the project that were active in the window, then render each one to Markdown with [`pi-session.jq`](pi-session.jq). Set `FILTER` to that file's absolute path: it sits next to this `SKILL.md`. Leave out tool calls for the first pass:
 
 ```bash
+FILTER=/path/to/distill-chats/pi-session.jq
 TMP_DIR=$(mktemp -d)
-zeron-tools export --project "$(git rev-parse --show-toplevel)" --since 30d --no-tools -o "$TMP_DIR"
+ROOT=$(git rev-parse --show-toplevel)
+SESSIONS=${PI_CODING_AGENT_SESSION_DIR:-$HOME/.pi/agent/sessions}
+fd -e jsonl --changed-within 30d . "$SESSIONS" | while IFS= read -r f; do
+  [ "$f" = "${PI_SESSION_FILE:-}" ] && continue
+  head -n 1 "$f" | jq -e --arg root "$ROOT" '.cwd == $root or (.cwd | startswith($root + "/"))' >/dev/null || continue
+  jq -nrR --argjson tools false -f "$FILTER" "$f" > "$TMP_DIR/$(basename "$f" .jsonl).md"
+done
 ```
 
-Files are named `<date>-<title-slug>-<id-prefix>.md`, oldest first. Each starts with a metadata list (chat id, project, harness and model, time range), followed by one heading per message:
+Pass absolute paths to `jq`: session folder names start with `--`, so a relative path parses as an option. The loop skips the session running this skill (`PI_SESSION_FILE`).
 
-- `## User (<time>)`: written by the user. This is the main source of corrections and preferences.
-- `## Assistant (<time>)`: the agent's answer.
-- `## Message from chat <title> (<id>) (<time>)`: output sent in by another agent chat, such as a sub-agent or a reviewer. Treat it as agent output, not user feedback.
+Files are named `<start time>_<session id>.md`, so they sort oldest first. Each starts with a metadata list (session id, folder, time range, models), followed by one heading per message:
 
-A forked chat has a `Forked from` line. When its parent chat is in the same export, the fork contains only its own messages. Otherwise, it keeps the copied history, with those messages marked as copied, followed by a `Forked here` line. When a candidate needs the exact commands the agent ran, re-export that chat with its tool log: `zeron-tools export --chat <id>`.
+- `## User (<time>)`: written by the user. This is the main source of corrections and preferences. A message that starts with `[Message from Zeron chat <title> (<id>)…]` was sent in by another agent chat, such as a sub-agent or a reviewer. Treat it as agent output, not user feedback.
+- `## Assistant (<time>)`: the agent's answer. Messages with only tool calls are left out.
+- ``## User ran `<command>` ``: a shell command the user ran with `!`.
+- `## Compaction summary` and `## Summary of a branch left through /tree`: summaries pi wrote of earlier or abandoned work.
 
-Skip the chat that is running this skill, and chats with no real work (for example, a single request with no answer).
+The file shows the session's current branch. A forked or cloned session has a `Forked from` line, and its copied history is left out, so read the parent session when the fork needs that context. When a candidate needs the exact commands the agent ran, or the errors it hit, render that session again with `--argjson tools true`.
+
+Skip sessions with no real work, for example a single request with no answer.
 
 ## Workflow
 
