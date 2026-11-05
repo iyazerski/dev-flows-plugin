@@ -1,0 +1,12 @@
+schema_version: "1.1"
+name: ratelimit-library
+expected_outcome: |
+  A dependency-free Go package with a per-key token bucket limiter and an HTTP
+  middleware. The API is small and concrete: a constructor that returns
+  *Limiter and rejects invalid settings, Allow and Wait methods where Wait
+  honors context cancellation and never sleeps while holding the lock, and
+  idle-key eviction that does not leave an unstoppable background goroutine.
+  The middleware has the standard func(http.Handler) http.Handler shape and
+  keys on the host from RemoteAddr. Exported identifiers have doc comments, and
+  tests control time with testing/synctest or an injected clock instead of real
+  sleeps, and pass with the race detector.

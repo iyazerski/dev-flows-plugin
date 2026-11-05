@@ -1,0 +1,15 @@
+schema_version: "1.1"
+name: refactor-orders-service
+context:
+  scaffold_script: place-files.sh
+expected_outcome: |
+  A refactored orders package that keeps the behavior the existing tests check
+  but fixes the problems in the original: errors formatted with %v instead of
+  wrapped and then compared with ==, a nil dereference when Cancel gets an
+  unknown ID, panics and ignored errors in LoadFromFile, decoding into
+  map[string]interface{} with unchecked type assertions, a context stored in a
+  struct, a data race in ProcessAll, an interface returned from a constructor
+  with an Impl type behind it, a Get-prefixed getter, a -1 sentinel return,
+  capitalized error strings, string concatenation in a loop, and pre-generics
+  helpers, replaced with current Go 1.27 idioms. The tests pass with the race detector, go vet is clean, and
+  CHANGES.md lists the changes with a reason each.

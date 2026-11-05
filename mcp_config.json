@@ -4,6 +4,10 @@
       "command": "lspyx",
       "args": ["mcp", "serve"]
     },
+    "gopls": {
+      "command": "gopls",
+      "args": ["mcp"]
+    },
     "chrome-devtools": {
       "serverUrl": "http://127.0.0.1:8765/chrome-devtools/mcp"
     },

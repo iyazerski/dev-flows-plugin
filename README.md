@@ -1,6 +1,6 @@
 # Dev Flows
 
-Dev Flows is a plugin with concise development workflow skills, bundled with [`lspyx`](https://github.com/iyazerski/lspyx) for Python semantic navigation, [`chrome-devtools-mcp`](https://github.com/ChromeDevTools/chrome-devtools-mcp) for browser debugging, and [`cua-driver`](https://github.com/trycua/cua/tree/main/libs/cua-driver) for desktop app automation. The same `SKILL.md` files work with [Codex](#install-codex), [Claude Code](#install-claude-code), [Pi](#install-pi), and [Antigravity](#install-antigravity).
+Dev Flows is a plugin with concise development workflow skills, bundled with [`lspyx`](https://github.com/iyazerski/lspyx) for Python semantic navigation, [`gopls`](https://go.dev/gopls/features/mcp) for Go semantic navigation, [`chrome-devtools-mcp`](https://github.com/ChromeDevTools/chrome-devtools-mcp) for browser debugging, and [`cua-driver`](https://github.com/trycua/cua/tree/main/libs/cua-driver) for desktop app automation. The same `SKILL.md` files work with [Codex](#install-codex), [Claude Code](#install-claude-code), [Pi](#install-pi), and [Antigravity](#install-antigravity).
 
 ## Skills
 
@@ -9,10 +9,11 @@ Dev Flows is a plugin with concise development workflow skills, bundled with [`l
 - `second-opinion`: consult other model families (Claude, GPT, Gemini) via `pi` for diff and design reviews.
 - `distill-chats`: read recent project sessions from [pi](https://github.com/earendil-works/pi) and turn verified gotchas and workarounds into `AGENTS.md`, skill, or wiki updates.
 - `rust-best-practices`: write idiomatic, robust Rust. Mirrored from [BeautifulRust](https://github.com/morganlinton/BeautifulRust) (MIT) by `scripts/sync-skills.sh`. A weekly workflow commits new upstream releases and bumps the plugin's patch version. Do not edit it here.
+- `go-best-practices`: Go 1.27+ rules that linters can't enforce: new standard library features and subtle pitfalls in interfaces, errors, concurrency, I/O, transactions, and tests. Ships `prek` and `golangci-lint` configs to copy into Go projects. Evals live in `skills/go-best-practices/evals/`.
 
 ## MCP servers
 
-The plugin declares all MCP servers in `.mcp.json` and `mcp_config.json`. `lspyx` provides read-only semantic navigation for Python workspaces.
+The plugin declares all MCP servers in `.mcp.json` and `mcp_config.json`. `lspyx` provides read-only semantic navigation for Python workspaces. `gopls mcp` does the same for Go (symbol search, references, package APIs, diagnostics) and can also rename symbols across the workspace.
 
 `chrome-devtools-mcp` runs as one shared background service behind [`mcp-proxy`](https://github.com/TBXark/mcp-proxy), so every harness and thread uses the same instance instead of starting its own. It uses `--autoConnect`, so it attaches to your running Chrome (144+) instead of launching a new one. Page tools take a `pageId`, so concurrent agents can work in separate tabs.
 
@@ -24,7 +25,7 @@ curl -fsSL https://raw.githubusercontent.com/iyazerski/dev-flows-plugin/main/scr
 
 The script is safe to re-run. It:
 
-- installs `lspyx`, `chrome-devtools-mcp` (with Bun), `mcp-proxy`, and `cua-driver` if they are missing, and skips the installed ones;
+- installs `lspyx`, `gopls` (only when Go is installed), `chrome-devtools-mcp` (with Bun), `mcp-proxy`, and `cua-driver` if they are missing, and skips the installed ones;
 - adds a `chrome-devtools` entry that runs it on Bun to `~/.config/mcp-proxy/config.json` and keeps any other servers there, so the same `mcp-proxy` can serve other projects;
 - starts `mcp-proxy` as the launchd agent `com.github.tbxark.mcp-proxy` if it is not running, or restarts it only when the config changed.
 

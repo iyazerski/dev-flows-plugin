@@ -1,6 +1,6 @@
 {
   "name": "dev-flows",
-  "version": "0.8.3",
+  "version": "0.9.0",
   "description": "Reusable development workflows with lspyx navigation.",
   "author": {
     "name": "Ihar Yazerski",

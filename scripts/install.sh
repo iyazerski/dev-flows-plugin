@@ -61,6 +61,12 @@ BUN=$(command -v bun)
 CHROME_DEVTOOLS_MCP="$(bun pm bin -g)/chrome-devtools-mcp"
 
 installed lspyx || curl -fsSL https://raw.githubusercontent.com/iyazerski/lspyx/main/install.sh | sh
+# gopls needs a Go toolchain at run time too, so skip it on machines without Go.
+if command -v go >/dev/null 2>&1; then
+  installed gopls || GOBIN="$BIN" go install golang.org/x/tools/gopls@latest
+else
+  echo "gopls: skipped, Go is not installed"
+fi
 if [ -x "$CHROME_DEVTOOLS_MCP" ]; then
   echo "chrome-devtools-mcp: already installed"
 else

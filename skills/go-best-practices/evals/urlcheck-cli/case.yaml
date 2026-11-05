@@ -1,0 +1,11 @@
+schema_version: "1.1"
+name: urlcheck-cli
+expected_outcome: |
+  A standard-library-only Go 1.27 CLI that checks URLs from a file with bounded
+  concurrency. Cancellation flows through context: Ctrl-C stops in-flight
+  requests via signal.NotifyContext, and each request has its own timeout.
+  Response bodies are always closed, no goroutine can block forever when the run
+  is cancelled, output is deterministic, and the exit code reflects failures.
+  main stays thin and delegates to a function that returns an error. Tests use
+  httptest instead of the network and pass with the race detector. The code uses
+  current Go idioms rather than pre-generics patterns.
