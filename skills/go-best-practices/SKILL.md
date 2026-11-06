@@ -28,8 +28,11 @@ repo has no Go hooks, suggest that the user adopt `assets/pre-commit-config.yaml
   `github.com/google/uuid`.
 - Methods can have their own type parameters. Use them instead of package-level generic
   helpers that serve one type.
-- `encoding/json/v2` is available. Consider it for new code that needs its options or
-  stricter defaults.
+- `encoding/json/v2` and `encoding/json/jsontext` are stable. Prefer v2 in new code.
+  Switching an existing import changes behavior with no compile error: names match
+  case-sensitively, duplicate names and invalid UTF-8 fail, nil slices and maps encode
+  as `[]` and `{}`, and `time.Duration` has no default encoding. Keep old wire formats
+  with v1's `json.DefaultOptionsV1()` or single options like `FormatDurationAsNano(true)`.
 - `os.Root` confines file access to a directory. Use it for untrusted names instead of
   `filepath.Join` plus prefix checks.
 - `tool` directives in `go.mod` (`go get -tool`) replace `tools.go` files.
