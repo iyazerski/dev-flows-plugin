@@ -1,6 +1,6 @@
 {
   "name": "dev-flows",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "description": "Reusable Codex development workflows with lspyx navigation.",
   "author": {
     "name": "Ihar Yazerski",
@@ -21,7 +21,7 @@
   "interface": {
     "displayName": "Dev Flows",
     "shortDescription": "Fast, evidence-based development workflows.",
-    "longDescription": "Dev Flows packages reusable workflows for commits, draft pull requests, second opinions, and distilling past chats into project knowledge.",
+    "longDescription": "Dev Flows packages reusable workflows for commits, draft pull requests, second opinions, and hardening codebases.",
     "developerName": "Ihar Yazerski",
     "category": "Productivity",
     "capabilities": [
@@ -32,7 +32,7 @@
       "Create a git commit.",
       "Create a draft PR for this branch.",
       "Ask for a second opinion on this diff or design.",
-      "Distill the last 30 days of chats in this project."
+      "Harden this codebase."
     ],
     "brandColor": "#10A37F",
     "composerIcon": "./assets/logo.png",

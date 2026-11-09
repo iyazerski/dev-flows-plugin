@@ -6,8 +6,8 @@ Dev Flows is a plugin with concise development workflow skills, bundled with [`l
 
 - `commit`: stage as needed and create a git commit.
 - `draft-pr`: push the current branch and create a draft PR.
-- `second-opinion`: consult other model families (Claude, GPT, Gemini) via `pi` for diff and design reviews.
-- `distill-chats`: read recent project sessions from [pi](https://github.com/earendil-works/pi) and turn verified gotchas and workarounds into `AGENTS.md`, skill, or wiki updates.
+- `second-opinion`: get a review from the other model family (Claude or GPT) via `pi` on diffs or designs.
+- `harden`: review code with a peer model, fix the real findings on a branch, and merge a peer-reviewed PR.
 - `rust-best-practices`: write idiomatic, robust Rust. Mirrored from [BeautifulRust](https://github.com/morganlinton/BeautifulRust) (MIT) by `scripts/sync-skills.sh`. A weekly workflow commits new upstream releases and bumps the plugin's patch version. Do not edit it here.
 - `go-best-practices`: Go 1.27+ rules that linters can't enforce: new standard library features and subtle pitfalls in interfaces, errors, concurrency, I/O, transactions, and tests. Ships `prek` and `golangci-lint` configs to copy into Go projects. Evals live in `skills/go-best-practices/evals/`.
 

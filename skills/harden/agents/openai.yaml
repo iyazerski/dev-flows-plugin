@@ -1,0 +1,4 @@
+interface:
+  display_name: "Harden"
+  short_description: "Review code with a second opinion, fix real findings on a branch, and merge a peer-reviewed PR."
+  default_prompt: "Harden this codebase."
