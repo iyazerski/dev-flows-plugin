@@ -5,7 +5,14 @@ description: Review a codebase, fix the real findings on a branch, and merge a p
 
 # Harden
 
-1. **Review.** Use the focus areas the user gives. If none, review against the language's best practices, and look at structure, performance, and implicit state machines. Get a $second-opinion.
+1. **Review.** Use the focus areas the user gives. If none, review:
+   - alignment with the language's best practices;
+   - code structure;
+   - performance;
+   - implicit state machines;
+   - custom logic that a library could replace: prefer the standard library or an existing dependency, adapting to its interface. Suggest a new, well-maintained library when it fits and removes real custom code.
+
+   Get a $second-opinion.
 2. **Filter.** Keep only findings that are real and likely to happen. Drop rare edge cases, theory, and fixes that cost more than they give. Small, harmless implicit state can stay.
 3. **Report and wait.** Explain each finding in simple words: what breaks, when, and why it matters. Propose a fix order in chunks. Wait for approval.
 4. **Fix.** Create a branch from the updated default branch. Fix one chunk at a time, and $commit each chunk.
