@@ -16,7 +16,7 @@ Create a real git commit from the intended staged changes.
 2. If nothing is staged, stage the current repository changes with `git add -A`, then inspect the staged diff again.
 3. Generate the commit message from the staged diff only. Do not use unstaged diffs unless step 2 staged them.
 4. Run required pre-commit validation before committing when repo guidance requires it.
-5. Create the commit with `git commit -m "<subject>" -m "<body>"`.
+5. Create the commit with `git commit -m "<subject>" -m "<body>"`. Other forms, like `-F` with a heredoc, often lose the blank line after the subject.
 6. Report the commit hash, subject, and any validation that ran.
 
 Do not push, create a branch, amend, or use `--no-verify` unless the latest user request explicitly asks for it.
