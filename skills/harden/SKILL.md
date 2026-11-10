@@ -17,4 +17,5 @@ description: Review a codebase, fix the real findings on a branch, and merge a p
 3. **Report and wait.** Explain each finding in simple words: what breaks, when, and why it matters. Propose a fix order in chunks. Wait for approval.
 4. **Fix.** Create a branch from the updated default branch. Fix one chunk at a time, and $commit each chunk.
 5. **PR.** $draft-pr and mark it ready. Get the peer's review of the PR diff and fix the real findings. When CI passes, merge it.
-6. **Wrap up.** Explain in simple words what changed for users, for developers, and for performance, and be honest about what you didn't measure. List what you left out.
+6. **Release.** Find out how this repo releases: recent release commits and tags, a changelog, release scripts, or CI workflows. Follow the same process for the merged changes, for example bumping the version or pushing a tag. If merging to the default branch already is the release, do nothing.
+7. **Wrap up.** Explain in simple words what changed for users, for developers, and for performance, and be honest about what you didn't measure. List what you left out.
