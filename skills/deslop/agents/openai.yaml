@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deslop"
+  short_description: "Remove redundant comments, tests, safeguards, and ownership workarounds without weakening real protections."
+  default_prompt: "De-slop this codebase."
