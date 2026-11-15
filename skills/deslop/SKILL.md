@@ -1,22 +1,20 @@
 ---
 name: deslop
-description: Remove redundant comments, low-value tests, speculative safeguards, and ownership workarounds while preserving real production behavior. Use when the user asks to de-slop code, cut defensive boilerplate, or radically reduce comments and tests.
+description: Remove unnecessary comments, tests, defensive code, and ownership workarounds. Use when the user asks to de-slop code or cut boilerplate.
 ---
 
 # Deslop
 
-1. **Review.** Read the repository's instructions and language-specific skill. Inspect the working tree before editing and preserve existing work. Trace production callers, types, schemas, and decision history, including relevant PRs. Reuse the closest existing helper, standard-library feature, or dependency before writing replacement logic.
+1. **Review.** Use the user's focus areas. If none, review:
+   - comments that repeat the code: keep required notices, tool-consumed text, and explanations of non-obvious behavior;
+   - duplicate, trivial, and coverage-only tests, plus tests for internal utilities outside production paths: keep meaningful production regressions and merge similar cases;
+   - impossible checks, speculative safeguards, silent fallbacks, and obsolete compatibility paths;
+   - ownership workarounds: prefer moves, shorter borrows, and disjoint fields over unnecessary clones, collections, or dummy state. Trust the language's guarantees.
 
-   Review these areas:
-   - **Comments.** Keep only language-required comments, legal and generated-file notices, tool-consumed text such as CLI help, safety explanations, and short explanations of non-obvious behavior or constraints. Remove narrated implementation, repeated signatures, obvious API documentation, and stale notes. Rewrite code that needs a comment merely to explain what it does.
-   - **Tests.** Keep a small set of meaningful tests for production behavior, real regressions, security boundaries, and process or data lifecycle. Remove duplicate, trivial, implementation-detail, and coverage-only tests. Remove tests for internal-only scripts and utilities outside production paths, along with orphaned fixtures, dependencies, and CI jobs. Internal tools that migrate production data or publish builds still have production paths. Merge similar cases when they share setup and behavior. Prefer public entry points and existing tests over new scaffolding.
-   - **Defensive code.** Look for repeated validation, impossible branches, silent defaults, obsolete compatibility paths, retries without a real failure mode, and special handling for extremely rare cases that costs more than it gives. Verify the invariant at its owner before removing checks downstream. If invalid input remains possible, prefer a clear error at the boundary over pretending success or returning dummy data.
-   - **Ownership.** In Rust, trust ownership, borrowing, enums, `Option`, `Result`, RAII, and the compiler's guarantees. Remove clones, intermediate collections, dummy state, and repeated lookups used only to get around borrow errors. Prefer moving values, borrowing disjoint fields, shortening borrows, and putting behavior on its owning type. A deliberate `Arc` clone, async snapshot, rollback copy, or `mem::take` is not automatically a workaround. Never replace safe code with `unsafe`, unchecked indexing, or runtime borrow machinery just to make it shorter.
-
-   Get a $second-opinion for a broad or non-trivial cleanup. Respect the user's chosen model and reasoning level.
-2. **Filter.** Keep only verified simplifications. For each removed guard or fallback, identify what makes it unnecessary and where that invariant is enforced. A successful test run alone does not prove a branch impossible. Language memory safety does not guarantee protocol validity, authorization, delivery, cancellation, or durability. Keep protections for actual I/O failures, untrusted input, partial files, stale UI callbacks, concurrent updates, and process exits. Do not trade a small check for a large refactor or introduce abstractions just to reduce line count.
-3. **Report and wait.** Explain the worthwhile cuts, the guarantees behind them, and the safeguards that will stay. Separate behavior-preserving cleanup from deliberate behavior changes. Propose chunks and wait for approval unless the user has already authorized implementation.
-4. **Simplify.** Work in small, coherent chunks on a working branch without discarding or moving unrelated changes. Delete obsolete paths instead of adding compatibility layers. Keep logic in its owning module. Do not add replacement comments, helper layers, tests, or exception handling just to justify the cleanup. Do not target a deletion percentage or test count.
-5. **Verify.** Review the diff for accidental production changes, especially comment-like text inside strings, generated content, and annotations. Run configured pre-commit hooks plus relevant tests, lint, type checks, and docs checks. Keep existing regressions when they still protect real behavior. Add or extend a test only for a real behavior change or regression, not deleted boilerplate. Measure CPU and memory before and after changes on hot paths, and distinguish microbenchmarks from end-to-end results. Stop after two failed attempts at the same fix and re-check the cause.
-6. **Review and ship.** Get the peer's review of the final diff for broad or non-trivial work, then fix only verified findings. Commit, push, open or merge a PR, and release only when explicitly authorized. For an authorized end-to-end workflow, use $commit and $draft-pr, wait for CI, merge, and follow the repository's established release process. If merging already triggers release, do not release again.
-7. **Wrap up.** State what was removed, what meaningful protections and tests remain, and which checks passed. Report measured costs or savings without claiming unmeasured gains. List the rare cases deliberately left unsupported and anything not verified. Say whether changes are uncommitted or published.
+   Get a $second-opinion.
+2. **Filter.** Verify assumptions against callers, types, schemas, and history. Remove only what is genuinely unnecessary. Keep real security, I/O, concurrency, and lifecycle protections. Don't replace safe code with unsafe shortcuts or bigger abstractions.
+3. **Report and wait.** Explain the worthwhile cuts and what stays. Propose chunks and wait for approval unless implementation is already authorized.
+4. **Simplify.** Work on a branch, preserving existing changes. Delete rather than add replacement scaffolding. Keep behavior in its owning module. Don't target a line count or coverage score.
+5. **Verify.** Run the relevant tests, hooks, lint, and type checks. Check for accidental behavior changes. Measure hot-path changes rather than guessing.
+6. **Ship.** Only when authorized, $commit the chunks, $draft-pr, get the peer's review, and merge after CI passes. Follow the repo's normal release process without duplicating automatic releases.
+7. **Wrap up.** Summarize what was removed, what safeguards remain, checks run, and anything left out or unmeasured.
