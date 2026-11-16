@@ -10,9 +10,10 @@
       "command": "gopls",
       "args": ["mcp"]
     },
-    "chrome-devtools": {
-      "type": "http",
-      "url": "http://127.0.0.1:8765/chrome-devtools/mcp"
+    "browse": {
+      "type": "stdio",
+      "command": "browse",
+      "args": ["mcp"]
     },
     "cua-driver": {
       "type": "stdio",

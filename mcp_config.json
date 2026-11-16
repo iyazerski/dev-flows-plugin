@@ -8,8 +8,9 @@
       "command": "gopls",
       "args": ["mcp"]
     },
-    "chrome-devtools": {
-      "serverUrl": "http://127.0.0.1:8765/chrome-devtools/mcp"
+    "browse": {
+      "command": "browse",
+      "args": ["mcp"]
     },
     "cua-driver": {
       "command": "cua-driver",

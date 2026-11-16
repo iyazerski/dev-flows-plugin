@@ -1,6 +1,6 @@
 # Dev Flows
 
-Dev Flows is a plugin with concise development workflow skills, bundled with [`lspyx`](https://github.com/iyazerski/lspyx) for Python semantic navigation, [`gopls`](https://go.dev/gopls/features/mcp) for Go semantic navigation, [`chrome-devtools-mcp`](https://github.com/ChromeDevTools/chrome-devtools-mcp) for browser debugging, and [`cua-driver`](https://github.com/trycua/cua/tree/main/libs/cua-driver) for desktop app automation. The same `SKILL.md` files work with [Codex](#install-codex), [Claude Code](#install-claude-code), [Pi](#install-pi), and [Antigravity](#install-antigravity).
+Dev Flows is a plugin with concise development workflow skills, bundled with [`lspyx`](https://github.com/iyazerski/lspyx) for Python semantic navigation, [`gopls`](https://go.dev/gopls/features/mcp) for Go semantic navigation, [`browse`](https://github.com/anomalyco/browse) for browser use in your Chrome, and [`cua-driver`](https://github.com/trycua/cua/tree/main/libs/cua-driver) for desktop app automation. The same `SKILL.md` files work with [Codex](#install-codex), [Claude Code](#install-claude-code), [Pi](#install-pi), and [Antigravity](#install-antigravity).
 
 ## Skills
 
@@ -16,9 +16,9 @@ Dev Flows is a plugin with concise development workflow skills, bundled with [`l
 
 The plugin declares all MCP servers in `.mcp.json` and `mcp_config.json`. `lspyx` provides read-only semantic navigation for Python workspaces. `gopls mcp` does the same for Go (symbol search, references, package APIs, diagnostics) and can also rename symbols across the workspace.
 
-`chrome-devtools-mcp` runs as one shared background service behind [`mcp-proxy`](https://github.com/TBXark/mcp-proxy), so every harness and thread uses the same instance instead of starting its own. It uses `--autoConnect`, so it attaches to your running Chrome (144+) instead of launching a new one. Page tools take a `pageId`, so concurrent agents can work in separate tabs.
+`browse` drives your running Chrome through its extension, with your logins and tabs. Each harness starts a small `browse mcp` proxy, and all of them share one relay process that starts on demand. Agents work in their own background tabs, so concurrent agents don't interfere. Chrome shows its "started debugging" bar while browse is attached, but there's no approval prompt.
 
-Install everything on macOS with one command ([Bun](https://bun.com) required for `chrome-devtools-mcp`):
+Install everything on macOS with one command:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/iyazerski/dev-flows-plugin/main/scripts/install.sh | sh
@@ -26,18 +26,12 @@ curl -fsSL https://raw.githubusercontent.com/iyazerski/dev-flows-plugin/main/scr
 
 The script is safe to re-run. It:
 
-- installs `lspyx`, `gopls` (only when Go is installed), `chrome-devtools-mcp` (with Bun), `mcp-proxy`, and `cua-driver` if they are missing, and skips the installed ones;
-- adds a `chrome-devtools` entry that runs it on Bun to `~/.config/mcp-proxy/config.json` and keeps any other servers there, so the same `mcp-proxy` can serve other projects;
-- starts `mcp-proxy` as the launchd agent `com.github.tbxark.mcp-proxy` if it is not running, or restarts it only when the config changed.
+- installs `lspyx`, `gopls` (only when Go is installed), `browse`, and `cua-driver` if they are missing, and skips the installed ones;
+- installs `browse` without adding it to agent configs, since the plugin declares it, and pairs its Chrome extension.
 
-Then:
+Then run `cua-driver permissions grant` once to allow Accessibility and Screen Recording for `CuaDriver.app`.
 
-- enable remote debugging once in Chrome at `chrome://inspect/#remote-debugging`;
-- run `cua-driver permissions grant` once to allow Accessibility and Screen Recording for `CuaDriver.app`.
-
-The plugin connects to `http://127.0.0.1:8765/chrome-devtools/mcp`. `mcp-proxy` reconnects if `chrome-devtools-mcp` exits. File-writing tools can save anywhere under your home directory. Logs are in `~/Library/Logs/mcp-proxy.log`.
-
-To update `chrome-devtools-mcp`, run `bun add -g chrome-devtools-mcp@latest` and restart the agent with `launchctl kickstart -k "gui/$(id -u)/com.github.tbxark.mcp-proxy"`.
+browse updates itself. Its tools read and write files only in the temp folders (add more with `OPENCODE_BROWSER_FILE_ROOTS`). `browse status` shows the relay and the extension, and logs are in `~/.local/state/browse/logs`.
 
 ## Install
 
