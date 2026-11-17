@@ -1,0 +1,4 @@
+interface:
+  display_name: "Python Best Practices"
+  short_description: "Write Python without defensive slop, fat routes, or slow dataframe code."
+  default_prompt: "Review this Python code against the best practices."

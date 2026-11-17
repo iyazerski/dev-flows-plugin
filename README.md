@@ -7,7 +7,7 @@
 **Development workflow skills for AI coding agents.**
 
 Commits, draft PRs, hardening and cleanup passes,<br>
-and Rust and Go rules that linters can't enforce. One set of skills for Claude Code, Codex, pi, Cursor and 70+ other agents.
+and Rust, Go and Python rules that linters can't enforce. One set of skills for Claude Code, Codex, pi, Cursor and 70+ other agents.
 
 [![CI](https://github.com/iyazerski/dev-flows-plugin/actions/workflows/ci.yml/badge.svg)](https://github.com/iyazerski/dev-flows-plugin/actions/workflows/ci.yml)
 [![Version](https://img.shields.io/github/package-json/v/iyazerski/dev-flows-plugin?color=10A37F)](package.json)
@@ -29,7 +29,7 @@ Coding agents can commit, open PRs and review code, but each does it differently
 - **A second pair of eyes.** `harden` gets a second opinion on its findings and its PR, with whatever your agent has for that: a subagent, a review tool or another model.
 - **Your style, not a template.** `draft-pr` mirrors the title and body of your latest PR in the repo. `commit` writes short, focused messages from the staged diff.
 - **Small context cost.** Each skill is about a page. The agent loads only the one it needs.
-- **Rules that linters miss.** The Rust and Go skills cover API design, errors, concurrency and new standard library features, and come with evals.
+- **Rules that linters miss.** The Rust, Go and Python skills cover API design, errors, concurrency, app layering and new language features, and come with evals.
 - **Works everywhere.** The skills follow the open [Agent Skills](https://agentskills.io) format, with native plugins for Claude Code, Codex, pi and Antigravity.
 
 ## Skills
@@ -42,6 +42,7 @@ Coding agents can commit, open PRs and review code, but each does it differently
 | `deslop` | Cuts needless comments, low-value tests, speculative defensive code and borrow-checker workarounds. | "De-slop the `api` package." |
 | `rust-best-practices` | Idiomatic, robust Rust, mirrored weekly from [BeautifulRust](https://github.com/morganlinton/BeautifulRust). | "Review this crate's error types." |
 | `go-best-practices` | Go 1.27+ features and pitfalls in interfaces, errors, concurrency, I/O, transactions and tests. Ships `prek` and `golangci-lint` configs. | "Refactor this Go service." |
+| `python-best-practices` | Python 3.14+ features and the slop agents add: defensive checks, swallowed errors, fat FastAPI routes, slow dataframe code. Ships `prek`, `ruff` and `ty` configs. | "Add an endpoint to this FastAPI app." |
 
 `harden` reports its findings and waits for your approval before it changes code. `harden` and `deslop` both work on a branch and merge through a PR.
 
@@ -111,7 +112,7 @@ Update with `git pull` in the clone.
 | `commit` | git |
 | `draft-pr`, `deslop` | git and the [GitHub CLI](https://cli.github.com), logged in |
 | `harden` | everything above |
-| `rust-best-practices`, `go-best-practices` | nothing |
+| `rust-best-practices`, `go-best-practices`, `python-best-practices` | nothing |
 
 ## FAQ
 

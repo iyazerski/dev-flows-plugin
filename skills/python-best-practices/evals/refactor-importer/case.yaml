@@ -1,0 +1,16 @@
+schema_version: "1.1"
+name: refactor-importer
+context:
+  scaffold_script: place-files.sh
+expected_outcome: |
+  A refactored ledger importer that keeps the behavior the existing test checks
+  but fixes the problems in the original: a config read into a dict with .get
+  chains and an os.getenv fallback, failures swallowed into {} or None by
+  broad except blocks, assert and cast used to satisfy types, getattr and
+  isinstance guards on known types, a class with only static methods, a module
+  global cache, a mutable default argument, an Optional parameter, naive
+  datetimes from utcnow and strptime, print instead of logging or raising, and
+  pandas iterrows with per-row parsing and nested dict accumulation. The config
+  and rows are parsed with Pydantic, only invalid rows are skipped, the
+  aggregation is vectorized, the result is a typed model or dataclass, and the
+  tests pass. CHANGES.md lists the changes with a reason each.
