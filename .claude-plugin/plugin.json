@@ -1,7 +1,7 @@
 {
   "name": "dev-flows",
-  "version": "0.12.0",
-  "description": "Reusable development workflows with lspyx navigation.",
+  "version": "0.13.0",
+  "description": "Reusable development workflow skills.",
   "author": {
     "name": "Ihar Yazerski",
     "email": "ihar.yazerski@gmail.com",
@@ -14,8 +14,6 @@
     "developer-workflow",
     "pull-requests",
     "git",
-    "mcp",
-    "python",
-    "lsp"
+    "skills"
   ]
 }
