@@ -1,12 +1,6 @@
 ---
 name: python-best-practices
-description: >-
-  Python rules that ruff and ty can't enforce: trusting types instead of defensive
-  checks, parsing with Pydantic, error handling, FastAPI and SQLAlchemy layering, fast
-  dataframe code, and features newer than your training data (Python 3.14 and 3.15,
-  Polars 2, SQLAlchemy 2.1). Use when writing, reviewing, refactoring, or debugging
-  Python code (.py files or pyproject.toml), including FastAPI, Pydantic, SQLAlchemy,
-  pandas, Polars, and pytest.
+description: Python rules that ruff and ty can't enforce, including FastAPI, SQLAlchemy, and dataframe code. Use when writing, reviewing, refactoring, or debugging Python code.
 ---
 
 # Python best practices
@@ -21,9 +15,6 @@ Read the matching reference before you change code that uses:
 - FastAPI: `references/fastapi.md`
 - SQLAlchemy: `references/sqlalchemy.md`
 - pandas, Polars, PyArrow, or large files and query results: `references/dataframes.md`
-
-Some libraries, like FastAPI and Typer, ship an agent skill for their installed version.
-If the repo uses one and the skill isn't installed, suggest `uvx library-skills`.
 
 ## Tools
 

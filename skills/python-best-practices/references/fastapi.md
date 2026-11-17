@@ -1,7 +1,6 @@
 # FastAPI apps
 
-FastAPI's own skill (`uvx library-skills`) covers the API: `Annotated`, return types,
-streaming, and routers. This file covers where code goes.
+This file covers where code goes in a FastAPI app.
 
 ## Layers
 

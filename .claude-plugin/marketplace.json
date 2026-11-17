@@ -9,7 +9,7 @@
     {
       "name": "dev-flows",
       "source": "./",
-      "description": "Development workflow skills for AI coding agents: commits, draft PRs, second opinions, hardening, cleanup, and Rust, Go, and Python best practices."
+      "description": "Development workflow skills for AI coding agents: commits, draft PRs, hardening, cleanup, and Rust, Go, and Python best practices."
     }
   ]
 }

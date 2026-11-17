@@ -1,7 +1,7 @@
 {
   "name": "dev-flows",
   "version": "0.16.0",
-  "description": "Development workflow skills for AI coding agents: commits, draft PRs, second opinions, hardening, cleanup, and Rust, Go, and Python best practices.",
+  "description": "Development workflow skills for AI coding agents: commits, draft PRs, hardening, cleanup, and Rust, Go, and Python best practices.",
   "author": {
     "name": "Ihar Yazerski",
     "email": "ihar.yazerski@gmail.com",
@@ -25,7 +25,7 @@
   "interface": {
     "displayName": "Dev Flows",
     "shortDescription": "Commits, draft PRs, hardening and cleanup.",
-    "longDescription": "Dev Flows gives Codex short, tested playbooks for daily development work: concise commits, draft PRs in your own style, second opinions from Claude, hardening and cleanup passes that end in a merged PR, and Rust, Go, and Python rules that linters can't enforce.",
+    "longDescription": "Dev Flows gives Codex short, tested playbooks for daily development work: concise commits, draft PRs in your own style, hardening and cleanup passes that end in a merged PR, and Rust, Go, and Python rules that linters can't enforce.",
     "developerName": "Ihar Yazerski",
     "category": "Productivity",
     "capabilities": [
@@ -35,7 +35,6 @@
     "defaultPrompt": [
       "Create a git commit.",
       "Create a draft PR for this branch.",
-      "Ask for a second opinion on this diff or design.",
       "Harden this codebase.",
       "De-slop this codebase."
     ],
