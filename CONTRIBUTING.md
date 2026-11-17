@@ -13,7 +13,7 @@ Each skill is a folder in `skills/` with a `SKILL.md` in the [Agent Skills](http
 - `name` matches the folder name, in lowercase words joined by hyphens.
 - `description` says what the skill does and when to use it. Agents read only this line to decide whether to load the skill, so name the words a user would say.
 - Keep the body short. Every line costs context in every session that loads it. Write steps the agent can follow, and leave out what it already knows.
-- Point to other skills with `$skill-name`, as `harden` does with `$second-opinion`.
+- Point to other skills with `$skill-name`, as `harden` does with `$commit`.
 - Add `agents/openai.yaml` with a display name, a short description and a default prompt for the Codex skill picker.
 - For best-practice skills, add evals in `evals/`: small tasks where the skill should change the result.
 
