@@ -1,6 +1,28 @@
 {
   "name": "dev-flows-plugin",
-  "version": "0.13.0",
+  "version": "0.14.0",
+  "description": "Development workflow skills for AI coding agents: commits, draft PRs, second opinions, hardening, cleanup, and Rust and Go best practices.",
+  "keywords": [
+    "pi-package",
+    "agent-skills",
+    "skills",
+    "claude-code",
+    "codex",
+    "ai-agents",
+    "git",
+    "pull-requests",
+    "code-review",
+    "rust",
+    "go"
+  ],
+  "homepage": "https://github.com/iyazerski/dev-flows-plugin#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iyazerski/dev-flows-plugin.git"
+  },
+  "bugs": "https://github.com/iyazerski/dev-flows-plugin/issues",
+  "license": "MIT",
+  "author": "Ihar Yazerski <ihar.yazerski@gmail.com> (https://github.com/iyazerski)",
   "pi": {
     "skills": [
       "./skills"

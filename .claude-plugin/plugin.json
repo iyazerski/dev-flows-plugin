@@ -1,7 +1,7 @@
 {
   "name": "dev-flows",
-  "version": "0.13.0",
-  "description": "Reusable development workflow skills.",
+  "version": "0.14.0",
+  "description": "Development workflow skills for AI coding agents: commits, draft PRs, second opinions, hardening, cleanup, and Rust and Go best practices.",
   "author": {
     "name": "Ihar Yazerski",
     "email": "ihar.yazerski@gmail.com",
@@ -11,9 +11,12 @@
   "repository": "https://github.com/iyazerski/dev-flows-plugin",
   "license": "MIT",
   "keywords": [
+    "skills",
     "developer-workflow",
-    "pull-requests",
     "git",
-    "skills"
+    "pull-requests",
+    "code-review",
+    "rust",
+    "go"
   ]
 }

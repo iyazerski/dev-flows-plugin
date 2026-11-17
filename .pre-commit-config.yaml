@@ -1,0 +1,24 @@
+# Vendored from upstream by scripts/sync-skills.sh: hooks mustn't reformat it, or the next sync shows a diff.
+exclude: ^skills/rust-best-practices/
+
+repos:
+  - repo: builtin
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-yaml
+      - id: check-json
+
+  - repo: local
+    hooks:
+      - id: plugin-check
+        name: manifests and skills
+        entry: scripts/check.sh
+        language: system
+        pass_filenames: false
+
+      - id: shellcheck
+        name: shellcheck
+        entry: shellcheck -s sh
+        language: system
+        files: \.sh$

@@ -1,64 +1,147 @@
+<div align="center">
+
+<img src="assets/logo.png" width="128" alt="Dev Flows logo">
+
 # Dev Flows
 
-Dev Flows is a plugin with concise development workflow skills. The same `SKILL.md` files work with [Codex](#install-codex), [Claude Code](#install-claude-code), [Pi](#install-pi), and [Antigravity](#install-antigravity).
+**Development workflow skills for AI coding agents.**
+
+Commits, draft PRs, second opinions from another model family, hardening and cleanup passes,<br>
+and Rust and Go rules that linters can't enforce. One set of skills for Claude Code, Codex, pi, Cursor and 70+ other agents.
+
+[![CI](https://github.com/iyazerski/dev-flows-plugin/actions/workflows/ci.yml/badge.svg)](https://github.com/iyazerski/dev-flows-plugin/actions/workflows/ci.yml)
+[![Version](https://img.shields.io/github/package-json/v/iyazerski/dev-flows-plugin?color=10A37F)](package.json)
+[![Agent Skills](https://img.shields.io/badge/agent-skills-black)](https://agentskills.io)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Buy me a coffee](https://img.shields.io/badge/buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/iyazerski)
+
+```sh
+npx skills add iyazerski/dev-flows-plugin
+```
+
+</div>
+
+## Why Dev Flows
+
+Coding agents can commit, open PRs and review code, but each does it differently every time. Dev Flows gives them short, tested playbooks for the work you repeat every day.
+
+- **Real results.** The skills end with a real commit, a real draft PR or a merged fix, not a list of suggestions.
+- **A second pair of eyes.** `second-opinion` asks the other model family for a review, Claude if you're on GPT and GPT if you're on Claude. `harden` uses it to check its own findings and its PR.
+- **Your style, not a template.** `draft-pr` mirrors the title and body of your latest PR in the repo. `commit` writes short, focused messages from the staged diff.
+- **Small context cost.** Each skill is about a page. The agent loads only the one it needs.
+- **Rules that linters miss.** The Rust and Go skills cover API design, errors, concurrency and new standard library features, and come with evals.
+- **Works everywhere.** The skills follow the open [Agent Skills](https://agentskills.io) format, with native plugins for Claude Code, Codex, pi and Antigravity.
 
 ## Skills
 
-- `commit`: stage as needed and create a git commit.
-- `draft-pr`: push the current branch and create a draft PR.
-- `second-opinion`: get a review from the other model family (Claude or GPT) via `pi` on diffs or designs.
-- `harden`: review code with a peer model, fix the real findings on a branch, and merge a peer-reviewed PR.
-- `deslop`: remove redundant comments, low-value tests, speculative safeguards, and ownership workarounds while keeping real production protections.
-- `rust-best-practices`: write idiomatic, robust Rust. Mirrored from [BeautifulRust](https://github.com/morganlinton/BeautifulRust) (MIT) by `scripts/sync-skills.sh`. A weekly workflow commits new upstream releases and bumps the plugin's patch version. Do not edit it here.
-- `go-best-practices`: Go 1.27+ rules that linters can't enforce: new standard library features and subtle pitfalls in interfaces, errors, concurrency, I/O, transactions, and tests. Ships `prek` and `golangci-lint` configs to copy into Go projects. Evals live in `skills/go-best-practices/evals/`.
+| Skill | What it does | Try saying |
+| --- | --- | --- |
+| `commit` | Stages changes if nothing is staged, writes a concise message from the diff, and commits. | "Commit this." |
+| `draft-pr` | Pushes the branch and opens a draft PR that matches your latest PR's style. | "Open a draft PR." |
+| `second-opinion` | Gets a read-only review of a diff, plan or design from the other model family through [pi](https://pi.dev). | "Get a second opinion on this design." |
+| `harden` | Reviews the code with a peer model, fixes the real findings on a branch, and merges a peer-reviewed PR. | "Harden this codebase." |
+| `deslop` | Cuts needless comments, low-value tests, speculative defensive code and borrow-checker workarounds. | "De-slop the `api` package." |
+| `rust-best-practices` | Idiomatic, robust Rust, mirrored weekly from [BeautifulRust](https://github.com/morganlinton/BeautifulRust). | "Review this crate's error types." |
+| `go-best-practices` | Go 1.27+ features and pitfalls in interfaces, errors, concurrency, I/O, transactions and tests. Ships `prek` and `golangci-lint` configs. | "Refactor this Go service." |
+
+`harden` reports its findings and waits for your approval before it changes code. `harden` and `deslop` both work on a branch and merge through a PR.
 
 ## Install
 
-### Antigravity
+### Any agent
 
-Clone or symlink the repository into your global Antigravity plugins directory:
+The [skills CLI](https://github.com/vercel-labs/skills) installs the skills into Cursor, Gemini CLI, GitHub Copilot, OpenCode and 70+ other agents. It asks which agents and skills you want:
 
-```bash
-mkdir -p ~/.gemini/config/plugins
-ln -s "$(pwd)" ~/.gemini/config/plugins/dev-flows
+```sh
+npx skills add iyazerski/dev-flows-plugin
 ```
 
-### Codex
+### Native plugins
 
-```bash
-codex plugin marketplace add iyazerski/dev-flows-plugin
-codex plugin add dev-flows@iyazerski  # use the same command for updates
-```
+<details>
+<summary><b>Claude Code</b></summary>
 
-Start a new Codex task after installing so the skills are loaded.
-
-### Claude Code
-
-```bash
+```sh
 claude plugin marketplace add iyazerski/dev-flows-plugin
 claude plugin install dev-flows@iyazerski
 ```
 
-To update the plugin, run:
+Update with `claude plugin update dev-flows@iyazerski`, then restart Claude Code or run `/reload-plugins`.
 
-```bash
-claude plugin update dev-flows@iyazerski
+</details>
+<details>
+<summary><b>Codex</b></summary>
+
+```sh
+codex plugin marketplace add iyazerski/dev-flows-plugin
+codex plugin add dev-flows@iyazerski
 ```
 
-Restart Claude Code or run `/reload-plugins` in the current session.
+Run the same `add` command to update. Start a new task afterwards, so the skills load.
 
-### Pi
+</details>
+<details>
+<summary><b>pi</b></summary>
 
-```bash
+```sh
 pi install git:github.com/iyazerski/dev-flows-plugin
 ```
 
-To update the plugin, run:
+Update with `pi update git:github.com/iyazerski/dev-flows-plugin`. For a complete pi setup that includes Dev Flows, see [pi-setup](https://github.com/iyazerski/pi-setup).
 
-```bash
-pi update git:github.com/iyazerski/dev-flows-plugin
+</details>
+<details>
+<summary><b>Antigravity</b></summary>
+
+Clone the repository and link it into your global Antigravity plugins folder:
+
+```sh
+git clone https://github.com/iyazerski/dev-flows-plugin.git
+mkdir -p ~/.gemini/config/plugins
+ln -s "$PWD/dev-flows-plugin" ~/.gemini/config/plugins/dev-flows
 ```
+
+Update with `git pull` in the clone.
+
+</details>
+
+### Requirements
+
+| Skill | Needs |
+| --- | --- |
+| `commit` | git |
+| `draft-pr`, `deslop` | git and the [GitHub CLI](https://cli.github.com), logged in |
+| `second-opinion` | [pi](https://pi.dev), logged in to a provider with `claude-opus-5-5` and one with `gpt-6.1-sol` |
+| `harden` | everything above |
+| `rust-best-practices`, `go-best-practices` | nothing |
+
+## FAQ
+
+<details>
+<summary><b>Do the skills push or merge without asking?</b></summary>
+
+`commit` never pushes. `draft-pr` pushes your branch and opens a draft, but never marks it ready, merges or requests reviews unless you ask. `harden` reports its findings and waits for your approval before it fixes anything. `deslop` makes its cuts right away. Both work on a new branch and merge their own PR once CI passes, so use them in repos where that's fine.
+
+</details>
+<details>
+<summary><b>Why does second-opinion need pi?</b></summary>
+
+It runs the other model family from your agent, read-only, with `pi -p`. pi talks to both Claude and GPT, so one command works from any agent.
+
+</details>
+<details>
+<summary><b>Can I install only some skills?</b></summary>
+
+Yes. Pick them in the skills CLI prompt, or pass `--skill`, for example `npx skills add iyazerski/dev-flows-plugin --skill commit --skill draft-pr`.
+
+</details>
+
+## Contributing
+
+Ideas for new skills, bug reports and pull requests are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+[MIT](LICENSE) © Ihar Yazerski. `rust-best-practices` comes from [BeautifulRust](https://github.com/morganlinton/BeautifulRust) under its [MIT license](skills/rust-best-practices/LICENSE).
+
+Dev Flows isn't affiliated with or endorsed by Anthropic, OpenAI, Google, Cursor or the makers of pi. All trademarks belong to their owners.

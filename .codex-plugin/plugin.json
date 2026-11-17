@@ -1,7 +1,7 @@
 {
   "name": "dev-flows",
-  "version": "0.13.0",
-  "description": "Reusable Codex development workflow skills.",
+  "version": "0.14.0",
+  "description": "Development workflow skills for AI coding agents: commits, draft PRs, second opinions, hardening, cleanup, and Rust and Go best practices.",
   "author": {
     "name": "Ihar Yazerski",
     "email": "ihar.yazerski@gmail.com",
@@ -12,15 +12,19 @@
   "license": "MIT",
   "keywords": [
     "codex",
+    "skills",
     "developer-workflow",
+    "git",
     "pull-requests",
-    "git"
+    "code-review",
+    "rust",
+    "go"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Dev Flows",
-    "shortDescription": "Fast, evidence-based development workflows.",
-    "longDescription": "Dev Flows packages reusable workflows for commits, draft pull requests, second opinions, hardening codebases, and removing unnecessary code.",
+    "shortDescription": "Commits, draft PRs, peer reviews and cleanup.",
+    "longDescription": "Dev Flows gives Codex short, tested playbooks for daily development work: concise commits, draft PRs in your own style, second opinions from Claude, hardening and cleanup passes that end in a merged PR, and Rust and Go rules that linters can't enforce.",
     "developerName": "Ihar Yazerski",
     "category": "Productivity",
     "capabilities": [
