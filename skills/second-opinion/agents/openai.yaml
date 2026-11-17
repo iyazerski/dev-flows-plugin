@@ -1,4 +1,0 @@
-interface:
-  display_name: "Second Opinion"
-  short_description: "Get a review from the other model family (Claude or GPT) via pi on diffs or designs."
-  default_prompt: "Ask the other model for a second opinion on this diff."

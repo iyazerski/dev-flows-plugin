@@ -6,7 +6,7 @@
 
 **Development workflow skills for AI coding agents.**
 
-Commits, draft PRs, second opinions from another model family, hardening and cleanup passes,<br>
+Commits, draft PRs, hardening and cleanup passes,<br>
 and Rust and Go rules that linters can't enforce. One set of skills for Claude Code, Codex, pi, Cursor and 70+ other agents.
 
 [![CI](https://github.com/iyazerski/dev-flows-plugin/actions/workflows/ci.yml/badge.svg)](https://github.com/iyazerski/dev-flows-plugin/actions/workflows/ci.yml)
@@ -26,7 +26,7 @@ npx skills add iyazerski/dev-flows-plugin
 Coding agents can commit, open PRs and review code, but each does it differently every time. Dev Flows gives them short, tested playbooks for the work you repeat every day.
 
 - **Real results.** The skills end with a real commit, a real draft PR or a merged fix, not a list of suggestions.
-- **A second pair of eyes.** `second-opinion` asks the other model family for a review, Claude if you're on GPT and GPT if you're on Claude. `harden` uses it to check its own findings and its PR.
+- **A second pair of eyes.** `harden` gets a second opinion on its findings and its PR, with whatever your agent has for that: a subagent, a review tool or another model.
 - **Your style, not a template.** `draft-pr` mirrors the title and body of your latest PR in the repo. `commit` writes short, focused messages from the staged diff.
 - **Small context cost.** Each skill is about a page. The agent loads only the one it needs.
 - **Rules that linters miss.** The Rust and Go skills cover API design, errors, concurrency and new standard library features, and come with evals.
@@ -38,8 +38,7 @@ Coding agents can commit, open PRs and review code, but each does it differently
 | --- | --- | --- |
 | `commit` | Stages changes if nothing is staged, writes a concise message from the diff, and commits. | "Commit this." |
 | `draft-pr` | Pushes the branch and opens a draft PR that matches your latest PR's style. | "Open a draft PR." |
-| `second-opinion` | Gets a read-only review of a diff, plan or design from the other model family through [pi](https://pi.dev). | "Get a second opinion on this design." |
-| `harden` | Reviews the code with a peer model, fixes the real findings on a branch, and merges a peer-reviewed PR. | "Harden this codebase." |
+| `harden` | Reviews the code, checks the findings with a second opinion, fixes the real findings on a branch, and merges a peer-reviewed PR. | "Harden this codebase." |
 | `deslop` | Cuts needless comments, low-value tests, speculative defensive code and borrow-checker workarounds. | "De-slop the `api` package." |
 | `rust-best-practices` | Idiomatic, robust Rust, mirrored weekly from [BeautifulRust](https://github.com/morganlinton/BeautifulRust). | "Review this crate's error types." |
 | `go-best-practices` | Go 1.27+ features and pitfalls in interfaces, errors, concurrency, I/O, transactions and tests. Ships `prek` and `golangci-lint` configs. | "Refactor this Go service." |
@@ -87,7 +86,7 @@ Run the same `add` command to update. Start a new task afterwards, so the skills
 pi install git:github.com/iyazerski/dev-flows-plugin
 ```
 
-Update with `pi update git:github.com/iyazerski/dev-flows-plugin`. For a complete pi setup that includes Dev Flows, see [pi-setup](https://github.com/iyazerski/pi-setup).
+Update with `pi update git:github.com/iyazerski/dev-flows-plugin`.
 
 </details>
 <details>
@@ -111,7 +110,6 @@ Update with `git pull` in the clone.
 | --- | --- |
 | `commit` | git |
 | `draft-pr`, `deslop` | git and the [GitHub CLI](https://cli.github.com), logged in |
-| `second-opinion` | [pi](https://pi.dev), logged in to a provider with `claude-opus-5-5` and one with `gpt-6.1-sol` |
 | `harden` | everything above |
 | `rust-best-practices`, `go-best-practices` | nothing |
 
@@ -121,12 +119,6 @@ Update with `git pull` in the clone.
 <summary><b>Do the skills push or merge without asking?</b></summary>
 
 `commit` never pushes. `draft-pr` pushes your branch and opens a draft, but never marks it ready, merges or requests reviews unless you ask. `harden` reports its findings and waits for your approval before it fixes anything. `deslop` makes its cuts right away. Both work on a new branch and merge their own PR once CI passes, so use them in repos where that's fine.
-
-</details>
-<details>
-<summary><b>Why does second-opinion need pi?</b></summary>
-
-It runs the other model family from your agent, read-only, with `pi -p`. pi talks to both Claude and GPT, so one command works from any agent.
 
 </details>
 <details>

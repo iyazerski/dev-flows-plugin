@@ -1,7 +1,7 @@
 {
   "name": "dev-flows-plugin",
-  "version": "0.14.0",
-  "description": "Development workflow skills for AI coding agents: commits, draft PRs, second opinions, hardening, cleanup, and Rust and Go best practices.",
+  "version": "0.15.0",
+  "description": "Development workflow skills for AI coding agents: commits, draft PRs, hardening, cleanup, and Rust and Go best practices.",
   "keywords": [
     "pi-package",
     "agent-skills",

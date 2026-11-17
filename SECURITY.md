@@ -1,6 +1,6 @@
 # Security
 
-Dev Flows is a set of instructions for AI coding agents. The skills tell your agent to run commands with your permissions: `git`, the GitHub CLI and pi. `draft-pr` pushes branches, and `harden` and `deslop` merge their own pull requests. Please report anything in a skill that could make an agent do something you didn't ask for, such as leaking secrets, pushing to the wrong place or skipping checks.
+Dev Flows is a set of instructions for AI coding agents. The skills tell your agent to run commands with your permissions: `git` and the GitHub CLI. `draft-pr` pushes branches, and `harden` and `deslop` merge their own pull requests. Please report anything in a skill that could make an agent do something you didn't ask for, such as leaking secrets, pushing to the wrong place or skipping checks.
 
 ## Report a vulnerability
 
