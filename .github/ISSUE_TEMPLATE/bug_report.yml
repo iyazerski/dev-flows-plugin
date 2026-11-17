@@ -14,6 +14,7 @@ body:
         - deslop
         - rust-best-practices
         - go-best-practices
+        - python-best-practices
         - Installation or plugin
     validations:
       required: true

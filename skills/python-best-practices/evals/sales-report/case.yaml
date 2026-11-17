@@ -1,0 +1,12 @@
+schema_version: "1.1"
+name: sales-report
+expected_outcome: |
+  A uv project with a command that turns a large orders CSV and a daily FX rates
+  CSV into a Parquet report of monthly USD totals per customer, on a machine
+  with less memory than the input. The pipeline reads lazily with Polars (or
+  DuckDB or PyArrow datasets), selects only the needed columns, parses types at
+  read time, converts currency with a join instead of row-wise lookups, fails
+  loudly when a rate is missing instead of dropping rows through an inner join,
+  sorts the output explicitly, and streams the result to Parquet. The entry
+  point is thin and calls a typed function, and tests build small inputs in
+  tmp_path and check the totals.

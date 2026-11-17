@@ -1,0 +1,18 @@
+schema_version: "1.1"
+name: orders-api
+context:
+  scaffold_script: place-files.sh
+expected_outcome: |
+  Three authenticated order endpoints added to an existing FastAPI and SQLAlchemy
+  2.1 app. Bearer-token authentication lives in one dependency, and loading an
+  order with its ownership check lives in one place, not in each route. Routes
+  only call service functions: queries, commits, and business rules sit in a
+  service or repository layer that knows nothing about HTTP. Cancelling uses a
+  conditional update or a row lock, and cancelling a non-pending order raises a
+  domain error that an exception handler maps to 409.
+  Filtering, sorting, and pagination run in SQL with a bounded limit. Responses
+  are typed models built from ORM objects, not hand-built dicts. The code trusts
+  its types instead of adding getattr, hasattr, or isinstance guards and
+  exception handlers that return None. Tests go through the HTTP API against an
+  isolated database, cover listing, filtering, pagination, and cancelling, plus
+  missing credentials and another user's order, and pass with ruff and ty clean.

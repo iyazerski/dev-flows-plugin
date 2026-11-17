@@ -1,0 +1,39 @@
+# Merge these tables into the project's pyproject.toml, and add the tools with
+# `uv add --dev ruff ty pytest`. ruff reads the Python version from requires-python.
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    # The formatter owns these.
+    "COM812", "E501",
+    # Docstring, copyright, and TODO formats.
+    "D", "DOC", "CPY001", "TD", "FIX002",
+    # Complexity counters and magic numbers flag reasonable code more often than slop.
+    "C90", "PLR0911", "PLR0912", "PLR0913", "PLR0915", "PLR0917", "PLR2004",
+    # Style rules about how exceptions are built and where raise sits in a try.
+    "EM", "TRY003", "TRY300", "TRY301",
+    "FBT", "SIM108", "RET501", "PERF203", "PERF401", "N999",
+    # Moving imports under TYPE_CHECKING breaks runtime annotations in Pydantic and FastAPI.
+    "TC001", "TC002", "TC003",
+    "RUF001", "RUF002", "RUF003",
+    "S105", "S311",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S106", "ANN", "ARG", "SLF001", "INP001", "TID251"]
+"scripts/**" = ["T201", "INP001"]
+
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"typing.cast".msg = "Fix the types instead of casting."
+"pydantic.v1".msg = "Use the Pydantic v2 API."
+
+[tool.ty.terminal]
+error-on-warning = true
+
+[tool.ty.rules]
+blanket-ignore-comment = "error"
+missing-type-argument = "error"
+possibly-unresolved-reference = "error"

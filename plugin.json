@@ -1,5 +1,5 @@
 {
   "$schema": "https://antigravity.google/schemas/v1/plugin.json",
   "name": "dev-flows",
-  "description": "Development workflow skills for AI coding agents: commits, draft PRs, hardening, cleanup, and Rust and Go best practices."
+  "description": "Development workflow skills for AI coding agents: commits, draft PRs, hardening, cleanup, and Rust, Go, and Python best practices."
 }
