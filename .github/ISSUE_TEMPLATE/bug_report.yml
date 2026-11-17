@@ -1,0 +1,48 @@
+name: Bug report
+description: A skill doesn't load or makes the agent do the wrong thing.
+labels: [bug]
+body:
+  - type: dropdown
+    id: skill
+    attributes:
+      label: Skill
+      options:
+        - commit
+        - draft-pr
+        - second-opinion
+        - harden
+        - deslop
+        - rust-best-practices
+        - go-best-practices
+        - Installation or plugin
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you ask, what did you expect, and what did the agent do instead?
+    validations:
+      required: true
+  - type: input
+    id: agent
+    attributes:
+      label: Agent and model
+      placeholder: Claude Code with claude-opus-5-5, Codex with gpt-6.1-sol, pi…
+    validations:
+      required: true
+  - type: dropdown
+    id: install
+    attributes:
+      label: Installed with
+      options:
+        - skills CLI (npx skills add)
+        - Claude Code plugin
+        - Codex plugin
+        - pi package
+        - Antigravity plugin
+  - type: input
+    id: version
+    attributes:
+      label: Dev Flows version
+      description: From your agent's plugin list, or `version` in package.json.

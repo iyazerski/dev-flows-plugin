@@ -1,0 +1,16 @@
+name: Skill idea or change
+description: Suggest a new skill or a change to one.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What workflow would you like the agent to handle?
+      description: Describe the task you repeat, and where agents get it wrong today.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: Your idea
+      description: The steps the agent should follow, or an example of a good result.
