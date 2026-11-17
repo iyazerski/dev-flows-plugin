@@ -13,15 +13,6 @@ Agents still write SQLAlchemy 1.x code. Use the 2.x API:
 - Bulk changes: `update()`, `delete()`, and `insert().values([...])` statements, not a
   loop over loaded objects.
 
-SQLAlchemy 2.1 changes:
-
-- The asyncio extension needs the `sqlalchemy[asyncio]` extra. `greenlet` no longer
-  installs by default.
-- The default PostgreSQL driver is psycopg 3, and the default Oracle driver is
-  python-oracledb.
-- Autoflush runs before every statement, including `text()`.
-- `tstring(t"... {value}")` builds SQL from a t-string and binds the values.
-
 ## Queries
 
 - Filter, sort, paginate, count, and aggregate in SQL. Don't load rows to filter them

@@ -42,7 +42,7 @@ Coding agents can commit, open PRs and review code, but each does it differently
 | `deslop` | Cuts needless comments, low-value tests, speculative defensive code and borrow-checker workarounds. | "De-slop the `api` package." |
 | `rust-best-practices` | Idiomatic, robust Rust, mirrored weekly from [BeautifulRust](https://github.com/morganlinton/BeautifulRust). | "Review this crate's error types." |
 | `go-best-practices` | Go 1.27+ features and pitfalls in interfaces, errors, concurrency, I/O, transactions and tests. Ships `prek` and `golangci-lint` configs. | "Refactor this Go service." |
-| `python-best-practices` | Python 3.14+ features and the slop agents add: defensive checks, swallowed errors, fat FastAPI routes, slow dataframe code. Ships `prek`, `ruff` and `ty` configs. | "Add an endpoint to this FastAPI app." |
+| `python-best-practices` | The slop agents add to Python: defensive checks, swallowed errors, fat FastAPI routes, slow dataframe code. Ships `prek`, `ruff` and `ty` configs. | "Add an endpoint to this FastAPI app." |
 
 `harden` reports its findings and waits for your approval before it changes code. `harden` and `deslop` both work on a branch and merge through a PR.
 

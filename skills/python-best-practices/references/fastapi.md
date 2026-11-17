@@ -32,7 +32,7 @@ only wraps `session.get`.
   after the response is sent by default, so a commit there can fail after the client
   saw success. Commit in the service, or declare the dependency with
   `scope="function"`.
-- Create shared clients (database engine, `httpx2.AsyncClient`) in `lifespan` and
+- Create shared clients (database engine, `AsyncClient`) in `lifespan` and
   expose them through dependencies. Don't build them per request or at import time.
 - Read settings through a cached dependency so tests can replace them with
   `app.dependency_overrides`.
@@ -58,7 +58,7 @@ only wraps `session.get`.
 
 ## Tests
 
-- Call the app through `TestClient` or `httpx2.ASGITransport`. Point the session
+- Call the app through `TestClient` or an `ASGITransport` client. Point the session
   dependency at a test database with `app.dependency_overrides`.
 - Override authentication only in tests that aren't about authentication. Keep at
   least one test that sends no credentials and one that requests another user's

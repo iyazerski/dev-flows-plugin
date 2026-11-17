@@ -38,14 +38,7 @@ On real data that turns seconds into hours.
   `try_parse_dates=True`.
 - **Many small steps.** Add independent columns with one `with_columns([...])` call, not
   one call per column in a loop. Expressions in one call can't use each other's output. Don't `collect()` in the middle and call `.lazy()` again.
-
-## Newer than your training data
-
-- Polars 2: lazy queries run on the streaming engine by default. It doesn't keep row
-  order for `group_by`, joins, or `unpivot`. Sort explicitly, or pass `maintain_order`
-  (for example `join(..., maintain_order="left")`).
-- Polars 2: `pl.concat` requires matching schemas, and casting strings to temporal
-  types is gone. Parse with `str.to_datetime(format=...)`.
-- pandas 3: copy-on-write is always on, so chained assignment like
-  `df[mask]["col"] = v` never writes. Use `df.loc[mask, "col"] = v`. String columns use
-  the `str` dtype, backed by Arrow when PyArrow is installed.
+- **Relying on row order.** Polars' streaming engine doesn't keep row order for
+  `group_by`, joins, or `unpivot`. Sort explicitly, or pass `maintain_order`.
+- **Chained assignment in pandas.** With copy-on-write, `df[mask]["col"] = v` never
+  writes. Use `df.loc[mask, "col"] = v`.

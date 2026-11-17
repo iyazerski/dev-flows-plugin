@@ -5,7 +5,7 @@ description: Python rules that ruff and ty can't enforce, including FastAPI, SQL
 
 # Python best practices
 
-This file assumes Python 3.14 or newer, uv, and repo hooks that run `ruff check`,
+This file assumes uv and repo hooks that run `ruff check`,
 `ruff format`, `ty check`, and `pytest`. It lists only what those tools don't catch. If
 the repo has no Python hooks, suggest that the user adopt `assets/pre-commit-config.yaml`
 and the settings in `assets/pyproject.toml`.
@@ -24,30 +24,6 @@ Read the matching reference before you change code that uses:
   `# noqa: CODE` or `# ty: ignore[rule]` on that line and say why. Never silence a type
   error with `cast`, `Any`, or `# type: ignore`. Fix the model, the parser, or the
   signature. For an untyped library, wrap it once in a typed function.
-
-## Newer than your training data
-
-Check `requires-python` before you use these.
-
-- 3.14: annotations are evaluated lazily. Don't add `from __future__ import annotations`
-  or quote forward references.
-- 3.14: t-strings (`t"..."`) build a `Template` instead of a `str`. Use them with APIs
-  that accept templates, like SQLAlchemy 2.1's `tstring()`, which binds the values.
-- 3.14: zstd is in the standard library as `compression.zstd`. Don't add `zstandard`.
-- 3.15: `lazy import x` and `lazy from x import y` defer loading until first use. Use them
-  for slow imports instead of moving imports into functions.
-- 3.15: `MISSING = sentinel("MISSING")` replaces `_MISSING = object()`, and works in
-  annotations like `int | MISSING`.
-- 3.15: `frozendict` is a builtin. Use it instead of `MappingProxyType` for constant maps.
-- 3.15: UTF-8 is the default encoding, so `open()` without `encoding=` reads UTF-8.
-- 3.15: `[*xs for xs in groups]` flattens without `itertools.chain`.
-- 3.15: `python -m profiling.sampling attach PID` profiles a running process with low
-  overhead. Profile before you optimize.
-- `httpx2` is the maintained fork of `httpx`, with the same API under a new import name.
-  Use it in new code. Starlette's `TestClient` warns when only `httpx` is installed.
-- Pydantic is v2: `model_validate`, `model_dump`, `field_validator`, and
-  `model_config = ConfigDict(...)`. The v1 names (`parse_obj`, `.dict()`, `@validator`,
-  `class Config`) are deprecated.
 
 ## Trust the types
 
@@ -69,6 +45,9 @@ code longer and hides real bugs as silent defaults.
 
 ## Pydantic
 
+- Use the v2 API: `model_validate`, `model_dump`, `field_validator`, and
+  `model_config = ConfigDict(...)`, not `parse_obj`, `.dict()`, `@validator`, or
+  `class Config`.
 - Let the model parse and convert. Don't pre-convert strings to `datetime`, `UUID`,
   `Decimal`, or enums, and don't check fields after construction. Use field types,
   `Field(gt=0)`, `Annotated` constraints, and validators instead.
@@ -121,10 +100,10 @@ code longer and hides real bugs as silent defaults.
 ## Tests
 
 - Test through public entry points: HTTP routes with `TestClient` or
-  `httpx2.ASGITransport`, CLI functions, and service functions.
+  `ASGITransport`, CLI functions, and service functions.
 - Use a real database in tests (SQLite in memory or a test Postgres) rather than mocking
   sessions or repositories. Mock only external services, for example with
-  `httpx2.MockTransport`.
+  `MockTransport`.
 - A bare `MagicMock()` accepts any attribute or call, so tests pass after a rename. Use
   a fake, or `create_autospec`.
 - Use `pytest.mark.parametrize` instead of copied tests, and `tmp_path` and `monkeypatch`
