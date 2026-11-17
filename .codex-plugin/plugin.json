@@ -1,7 +1,7 @@
 {
   "name": "dev-flows",
-  "version": "0.12.0",
-  "description": "Reusable Codex development workflows with lspyx navigation.",
+  "version": "0.13.0",
+  "description": "Reusable Codex development workflow skills.",
   "author": {
     "name": "Ihar Yazerski",
     "email": "ihar.yazerski@gmail.com",
@@ -17,7 +17,6 @@
     "git"
   ],
   "skills": "./skills/",
-  "mcpServers": "./.mcp.json",
   "interface": {
     "displayName": "Dev Flows",
     "shortDescription": "Fast, evidence-based development workflows.",
