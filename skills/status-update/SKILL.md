@@ -24,7 +24,7 @@ Generate a brief daily standup update optimized for speaking aloud on a team cal
 
 - Write plain text ready to read aloud. Do not add headers (no Yesterday, Today, or Blockers) and do not split one piece of work across yesterday and today.
 - Break the text into short paragraphs by logical item: for example, one paragraph per ticket, or for a single bugfix, one paragraph for the issue and one for the fix, plus a short paragraph for what's next if separate.
-- Use short, simple sentences and everyday spoken English. Avoid long clauses (such as "which ..." or "even though ..."), robotic phrasing, and unnecessary jargon. Plain, casual wording is better than polished prose.
+- Use short, simple sentences and everyday spoken English. Avoid long clauses (such as "which ..." or "even though ..."), trailing "-ing" phrases (such as "..., bringing ..."), robotic phrasing, and unnecessary jargon. Plain, casual wording is better than polished prose.
 - Briefly explain **what** you worked on and **why** so teammates working on other areas can follow along, not just status labels.
 - Include visible ticket IDs naturally when the tracker uses them (such as Jira keys). When there is no visible ID (such as Asana), use a short, natural task name instead of a long full title or service prefixes.
 
