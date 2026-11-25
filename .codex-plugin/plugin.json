@@ -36,7 +36,8 @@
       "Create a git commit.",
       "Create a draft PR for this branch.",
       "Harden this codebase.",
-      "De-slop this codebase."
+      "De-slop this codebase.",
+      "Generate my status update for today's standup."
     ],
     "brandColor": "#10A37F",
     "composerIcon": "./assets/logo.png",

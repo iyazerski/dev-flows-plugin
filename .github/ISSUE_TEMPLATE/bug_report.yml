@@ -12,6 +12,7 @@ body:
         - second-opinion
         - harden
         - deslop
+        - status-update
         - rust-best-practices
         - go-best-practices
         - python-best-practices

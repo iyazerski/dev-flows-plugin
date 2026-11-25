@@ -40,6 +40,7 @@ Coding agents can commit, open PRs and review code, but each does it differently
 | `draft-pr` | Pushes the branch and opens a draft PR that matches your latest PR's style. | "Open a draft PR." |
 | `harden` | Reviews the code, checks the findings with a second opinion, fixes the real findings on a branch, and merges a peer-reviewed PR. | "Harden this codebase." |
 | `deslop` | Cuts needless comments, low-value tests, speculative defensive code and borrow-checker workarounds. | "De-slop the `api` package." |
+| `status-update` | Checks your work board, recent agent sessions and PRs to draft a short spoken update for daily standup. | "Draft my status update." |
 | `rust-best-practices` | Idiomatic, robust Rust, mirrored weekly from [BeautifulRust](https://github.com/morganlinton/BeautifulRust). | "Review this crate's error types." |
 | `go-best-practices` | Go 1.27+ features and pitfalls in interfaces, errors, concurrency, I/O, transactions and tests. Ships `prek` and `golangci-lint` configs. | "Refactor this Go service." |
 | `python-best-practices` | The slop agents add to Python: defensive checks, swallowed errors, fat FastAPI routes, slow dataframe code. Ships `prek`, `ruff` and `ty` configs. | "Add an endpoint to this FastAPI app." |
@@ -112,6 +113,7 @@ Update with `git pull` in the clone.
 | `commit` | git |
 | `draft-pr`, `deslop` | git and the [GitHub CLI](https://cli.github.com), logged in |
 | `harden` | everything above |
+| `status-update` | local agent sessions (optional: issue tracker CLI or MCP, PR CLI) |
 | `rust-best-practices`, `go-best-practices`, `python-best-practices` | nothing |
 
 ## FAQ
