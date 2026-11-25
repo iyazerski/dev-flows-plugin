@@ -1,0 +1,4 @@
+interface:
+  display_name: "Status Update"
+  short_description: "Generate a short spoken daily standup update from work tickets, sessions, and PRs."
+  default_prompt: "Generate my status update for today's standup."
