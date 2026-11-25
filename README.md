@@ -6,7 +6,7 @@
 
 **Development workflow skills for AI coding agents.**
 
-Commits, draft PRs, hardening and cleanup passes,<br>
+Commits, draft PRs, standup updates, hardening and cleanup passes,<br>
 and Rust, Go and Python rules that linters can't enforce. One set of skills for Claude Code, Codex, pi, Cursor and 70+ other agents.
 
 [![CI](https://github.com/iyazerski/dev-flows-plugin/actions/workflows/ci.yml/badge.svg)](https://github.com/iyazerski/dev-flows-plugin/actions/workflows/ci.yml)
